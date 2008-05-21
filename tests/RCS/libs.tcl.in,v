@@ -1,0 +1,48 @@
+head	1.1;
+branch	1.1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2003.08.18.09.33.04;	author marco;	state Exp;
+branches
+	1.1.1.1;
+next	;
+
+1.1.1.1
+date	2003.08.18.09.33.04;	author marco;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@# libs.tcl --
+
+set libfile		@@alist_LIB_FILE@@
+set stubtestfile	@@package_stub_TESTLIB_FILE@@
+
+### end of file
+# $Id: libs.tcl.in,v 1.1.1.4 2003/08/16 09:48:23 marco Exp $
+@
+
+
+1.1.1.1
+log
+@Initial branch
+@
+text
+@d7 1
+a7 1
+# $Id: libs.tcl.in,v 1.1 2003/08/18 09:33:04 marco Exp $
+@

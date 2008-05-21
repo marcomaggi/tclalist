@@ -1,0 +1,18 @@
+
+		   Things to do for AList
+		   ======================
+
+
+* If an alist  holds an odd number of  elements, the last is
+  ignored. The  last element is  reserved to hold  the alist
+  "property list". Actually there are no defined properties.
+
+    Ideas: "const",  disallow the modification  of an alist;
+  "type" the data type of the alist.
+
+
+### end of file
+# $Id: TODO,v 1.7 2003/08/18 09:31:24 marco Exp $
+# Local Variables:
+# mode: text
+# End:

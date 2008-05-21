@@ -1,0 +1,368 @@
+head	1.1;
+branch	1.1.1;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.1
+date	2003.08.18.10.00.36;	author marco;	state Exp;
+branches
+	1.1.1.1;
+next	;
+
+1.1.1.1
+date	2003.08.18.10.00.36;	author marco;	state Exp;
+branches;
+next	1.1.1.2;
+
+1.1.1.2
+date	2003.08.18.10.12.11;	author marco;	state Exp;
+branches;
+next	1.1.1.3;
+
+1.1.1.3
+date	2003.08.18.10.16.39;	author marco;	state Exp;
+branches;
+next	1.1.1.4;
+
+1.1.1.4
+date	2003.08.18.10.53.52;	author marco;	state Exp;
+branches;
+next	1.1.1.5;
+
+1.1.1.5
+date	2003.09.12.17.37.47;	author marco;	state Exp;
+branches;
+next	1.1.1.6;
+
+1.1.1.6
+date	2003.09.12.17.37.52;	author marco;	state Exp;
+branches;
+next	;
+
+
+desc
+@the declarations header file
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@/* alistDecls.h --
+   
+   Part of: AList
+   Contents: declarations header file
+   Date: Mon Aug 18, 2003
+   
+   Abstract
+   
+   
+   
+   Copyright (c) 2003 Marco Maggi
+   
+   The author  hereby grant permission to use,  copy, modify, distribute,
+   and  license this  software  and its  documentation  for any  purpose,
+   provided that  existing copyright notices  are retained in  all copies
+   and that  this notice  is included verbatim  in any  distributions. No
+   written agreement, license, or royalty  fee is required for any of the
+   authorized uses.  Modifications to this software may be copyrighted by
+   their authors and need not  follow the licensing terms described here,
+   provided that the new terms are clearly indicated on the first page of
+   each file where they apply.
+   
+   IN NO  EVENT SHALL THE AUTHOR  OR DISTRIBUTORS BE LIABLE  TO ANY PARTY
+   FOR  DIRECT, INDIRECT, SPECIAL,  INCIDENTAL, OR  CONSEQUENTIAL DAMAGES
+   ARISING OUT  OF THE  USE OF THIS  SOFTWARE, ITS DOCUMENTATION,  OR ANY
+   DERIVATIVES  THEREOF, EVEN  IF THE  AUTHOR  HAVE BEEN  ADVISED OF  THE
+   POSSIBILITY OF SUCH DAMAGE.
+   
+   THE  AUTHOR  AND DISTRIBUTORS  SPECIFICALLY  DISCLAIM ANY  WARRANTIES,
+   INCLUDING,   BUT   NOT  LIMITED   TO,   THE   IMPLIED  WARRANTIES   OF
+   MERCHANTABILITY,    FITNESS   FOR    A    PARTICULAR   PURPOSE,    AND
+   NON-INFRINGEMENT.  THIS  SOFTWARE IS PROVIDED  ON AN "AS  IS" BASIS,
+   AND  THE  AUTHOR  AND  DISTRIBUTORS  HAVE  NO  OBLIGATION  TO  PROVIDE
+   MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+   
+   $Id$
+*/
+
+
+#ifndef __ALISTDECLS_H
+#define __ALISTDECLS_H 1
+
+
+
+/** ------------------------------------------------------------
+ ** Defines.
+ ** ----------------------------------------------------------*/
+
+#define ALIST_ERRCODE_INTERNAL_ERROR	"LOGIC INTERNAL_ERROR"
+#define ALIST_ERRCODE_WRONG_NUM_ARGS	"LOGIC WRONG_NUM_ARGS"
+#define ALIST_ERRCODE_INVALID_ARGUMENT	"LOGIC INVALID_ARGUMENT"
+
+
+
+/** ------------------------------------------------------------
+ ** Prototypes.
+ ** ----------------------------------------------------------*/
+
+#ifndef USE_ALIST_STUBS
+
+
+int	AList_ObjAssign		_ANSI_ARGS_((Tcl_Interp *interp,
+					     Tcl_Obj *alistPre,
+					     Tcl_Obj *key,
+					     Tcl_Obj *value,
+					     Tcl_Obj **alistPost));
+
+int	AList_Assign		_ANSI_ARGS_((Tcl_Interp *interp,
+					     Tcl_Obj *alistPre,
+					     CONST char *CONST key,
+					     Tcl_Obj *value,
+					     Tcl_Obj **alistPost));
+
+int	AList_ObjAt		_ANSI_ARGS_((Tcl_Interp *interp,
+					     Tcl_Obj *alist,
+					     Tcl_Obj *key,
+					     Tcl_Obj **valuePtr));
+
+int	AList_At		_ANSI_ARGS_((Tcl_Interp *interp,
+					     Tcl_Obj *alist,
+					     CONST char *key,
+					     Tcl_Obj **valuePtr));
+
+int	AList_GetNames		_ANSI_ARGS_((Tcl_Interp *interp,
+					     Tcl_Obj *alist,
+					     Tcl_Obj **namesPtr));
+
+int	AList_GetValues		_ANSI_ARGS_((Tcl_Interp *interp,
+					     Tcl_Obj *alist,
+					     Tcl_Obj **valuesPtr));
+
+
+CONST char **	AList_MakeKeyVector	_ANSI_ARGS_((Tcl_Obj **objs,
+						     int length));
+
+
+#endif /* no defined USE_ALIST_STUBS */
+
+
+
+/** ------------------------------------------------------------
+ ** Stubs table.
+ ** ----------------------------------------------------------*/
+
+typedef struct Alist_StubsTable {
+} Alist_StubsTable
+
+
+
+/** ------------------------------------------------------------
+ ** Stubs declarations.
+ ** ----------------------------------------------------------*/
+
+#ifdef USE_ALIST_STUBS
+
+EXTERN Alist_StubsTable *	alistStubsPtr;
+
+EXTERN CONST char *	Alist_InitStubs	_ANSI_ARGS_((Tcl_Interp *interp,
+						     char *version,
+						     int exact));
+/*
+  Declares the macros use to  indirectly invoke the ALust functions from
+  the stubs table.
+*/
+
+#define Alist_BzAlloc			((alistStubsPtr)->alist_BzAlloc)
+
+
+#endif /* defined USE_ALIST_STUBS */
+
+
+#endif /* __ALISTDECLS_H */
+
+
+/* end of file */
+@
+
+
+1.1.1.1
+log
+@Initial branch
+@
+text
+@d36 1
+a36 1
+   $Id: alistDecls.h,v 1.1 2003/08/18 10:00:36 marco Exp $
+@
+
+
+1.1.1.2
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+   $Id: alistDecls.h,v 1.1.1.1 2003/08/18 10:00:36 marco Exp marco $
+d93 3
+a105 32
+
+int	alist_Assign		_ANSI_ARGS_((Tcl_Interp *interp,
+					     Tcl_Obj *alistPre,
+					     CONST char *CONST key,
+					     Tcl_Obj *value,
+					     Tcl_Obj **alistPost));
+
+int	alist_At		_ANSI_ARGS_((Tcl_Interp *interp,
+					     Tcl_Obj *alist,
+					     CONST char *key,
+					     Tcl_Obj **valuePtr));
+
+int	alist_GetNames		_ANSI_ARGS_((Tcl_Interp *interp,
+					     Tcl_Obj *alist,
+					     Tcl_Obj **namesPtr));
+
+int	alist_GetValues		_ANSI_ARGS_((Tcl_Interp *interp,
+					     Tcl_Obj *alist,
+					     Tcl_Obj **valuesPtr));
+
+int	alist_ObjAssign		_ANSI_ARGS_((Tcl_Interp *interp,
+					     Tcl_Obj *alistPre,
+					     Tcl_Obj *key,
+					     Tcl_Obj *value,
+					     Tcl_Obj **alistPost));
+
+int	alist_ObjAssign		_ANSI_ARGS_((Tcl_Interp *interp,
+					     Tcl_Obj *alistPre,
+					     Tcl_Obj *key,
+					     Tcl_Obj *value,
+					     Tcl_Obj **alistPost));
+
+d126 1
+a126 6
+#define Alist_Assign			((alistStubsPtr)->alist_Assign)
+#define Alist_At			((alistStubsPtr)->alist_At)
+#define Alist_GetNames			((alistStubsPtr)->alist_GetNames)
+#define Alist_GetValue			((alistStubsPtr)->alist_GetValue)
+#define Alist_ObjAssign			((alistStubsPtr)->alist_ObjAssign)
+#define Alist_ObjAt			((alistStubsPtr)->alist_ObjAt)
+@
+
+
+1.1.1.3
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+   $Id: alistDecls.h,v 1.1.1.2 2003/08/18 10:12:11 marco Exp marco $
+d104 1
+a104 1
+int	(*alist_Assign)		_ANSI_ARGS_((Tcl_Interp *interp,
+d110 1
+a110 1
+int	(*alist_At)		_ANSI_ARGS_((Tcl_Interp *interp,
+d115 1
+a115 1
+int	(*alist_GetNames)	_ANSI_ARGS_((Tcl_Interp *interp,
+d119 1
+a119 1
+int	(*alist_GetValues)	_ANSI_ARGS_((Tcl_Interp *interp,
+d123 1
+a123 1
+int	(*alist_ObjAssign)	_ANSI_ARGS_((Tcl_Interp *interp,
+d129 2
+a130 2
+int	(*alist_ObjAt)		_ANSI_ARGS_((Tcl_Interp *interp,
+					     Tcl_Obj *alist,
+d132 2
+a133 1
+					     Tcl_Obj **valuePtr));
+d135 1
+a135 1
+} Alist_StubsTable;
+@
+
+
+1.1.1.4
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+   $Id: alistDecls.h,v 1.1.1.3 2003/08/18 10:16:39 marco Exp marco $
+d61 2
+a62 1
+EXTERN int	Alist_ObjAssign	_ANSI_ARGS_((Tcl_Interp *interp,
+d68 1
+a68 1
+EXTERN int	Alist_Assign	_ANSI_ARGS_((Tcl_Interp *interp,
+d74 1
+a74 1
+EXTERN int	Alist_ObjAt	_ANSI_ARGS_((Tcl_Interp *interp,
+d79 1
+a79 1
+EXTERN int	Alist_At	_ANSI_ARGS_((Tcl_Interp *interp,
+d84 1
+a84 1
+EXTERN int	Alist_GetNames	_ANSI_ARGS_((Tcl_Interp *interp,
+d88 1
+a88 1
+EXTERN int	Alist_GetValues	_ANSI_ARGS_((Tcl_Interp *interp,
+@
+
+
+1.1.1.5
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+   $Id: alistDecls.h,v 1.1.1.4 2003/08/18 10:53:52 marco Exp marco $
+d98 1
+a98 1
+ ** Stub table.
+d101 1
+a101 1
+typedef struct Alist_StubTable {
+d133 1
+a133 1
+} Alist_StubTable;
+d143 1
+a143 1
+EXTERN Alist_StubTable *	alistStubPtr;
+d145 1
+a145 1
+EXTERN CONST char *	Alist_InitStub	_ANSI_ARGS_((Tcl_Interp *interp,
+d153 6
+a158 6
+#define Alist_Assign			((alistStubPtr)->alist_Assign)
+#define Alist_At			((alistStubPtr)->alist_At)
+#define Alist_GetNames			((alistStubPtr)->alist_GetNames)
+#define Alist_GetValue			((alistStubPtr)->alist_GetValue)
+#define Alist_ObjAssign			((alistStubPtr)->alist_ObjAssign)
+#define Alist_ObjAt			((alistStubPtr)->alist_ObjAt)
+@
+
+
+1.1.1.6
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+   $Id: alistDecls.h,v 1.1.1.5 2003/09/12 17:37:47 marco Exp marco $
+d145 1
+a145 1
+EXTERN CONST char *	Alist_InitStubs	_ANSI_ARGS_((Tcl_Interp *interp,
+@

@@ -1,0 +1,7 @@
+# libs.tcl --
+
+set libfile		@alist_LIB_FILE@
+set stubtestfile	@package_stub_TESTLIB_FILE@
+
+### end of file
+# $Id: libs.tcl.in,v 1.1.1.1 2003/08/18 09:33:04 marco Exp $

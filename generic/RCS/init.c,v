@@ -1,0 +1,1282 @@
+head	1.32;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.32
+date	2003.09.12.17.34.21;	author marco;	state Exp;
+branches;
+next	1.31;
+
+1.31
+date	2003.08.18.19.53.04;	author marco;	state Exp;
+branches;
+next	1.30;
+
+1.30
+date	2003.08.18.11.15.53;	author marco;	state Exp;
+branches;
+next	1.29;
+
+1.29
+date	2003.08.18.10.53.48;	author marco;	state Exp;
+branches;
+next	1.28;
+
+1.28
+date	2003.08.18.10.17.09;	author marco;	state Exp;
+branches;
+next	1.27;
+
+1.27
+date	2003.08.18.09.50.27;	author marco;	state Exp;
+branches;
+next	1.26;
+
+1.26
+date	2003.08.18.09.50.14;	author marco;	state Exp;
+branches;
+next	1.25;
+
+1.25
+date	2003.02.01.05.50.25;	author marco;	state Exp;
+branches;
+next	1.24;
+
+1.24
+date	2003.01.31.19.15.59;	author marco;	state Exp;
+branches;
+next	1.23;
+
+1.23
+date	2002.12.26.11.01.48;	author marco;	state Exp;
+branches;
+next	1.22;
+
+1.22
+date	2002.12.26.10.48.05;	author marco;	state Exp;
+branches;
+next	1.21;
+
+1.21
+date	2002.12.26.10.38.58;	author marco;	state Exp;
+branches;
+next	1.20;
+
+1.20
+date	2002.10.26.13.47.31;	author marco;	state Exp;
+branches;
+next	1.19;
+
+1.19
+date	2002.08.05.07.09.25;	author marco;	state Exp;
+branches;
+next	1.18;
+
+1.18
+date	2002.07.31.15.48.44;	author marco;	state Exp;
+branches;
+next	1.17;
+
+1.17
+date	2002.05.06.15.33.13;	author marco;	state Exp;
+branches;
+next	1.16;
+
+1.16
+date	2002.04.27.08.18.28;	author marco;	state Exp;
+branches;
+next	1.15;
+
+1.15
+date	2002.04.27.08.13.37;	author marco;	state Exp;
+branches;
+next	1.14;
+
+1.14
+date	2002.03.25.16.56.17;	author marco;	state Exp;
+branches;
+next	1.13;
+
+1.13
+date	2002.03.25.15.18.24;	author marco;	state Exp;
+branches;
+next	1.12;
+
+1.12
+date	2002.03.25.15.15.02;	author marco;	state Exp;
+branches;
+next	1.11;
+
+1.11
+date	2002.03.13.12.12.25;	author marco;	state Exp;
+branches;
+next	1.10;
+
+1.10
+date	2002.03.13.10.07.04;	author marco;	state Exp;
+branches;
+next	1.9;
+
+1.9
+date	2002.03.13.09.24.50;	author marco;	state Exp;
+branches;
+next	1.8;
+
+1.8
+date	2002.03.13.09.12.18;	author marco;	state Exp;
+branches;
+next	1.7;
+
+1.7
+date	2002.03.13.09.11.04;	author marco;	state Exp;
+branches;
+next	1.6;
+
+1.6
+date	2002.03.13.08.11.26;	author marco;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	2002.03.13.07.47.21;	author marco;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	2002.03.08.19.31.58;	author marco;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	2002.03.08.19.29.18;	author marco;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	2002.03.08.18.55.44;	author marco;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2002.03.08.18.55.32;	author marco;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.32
+log
+@*** empty log message ***
+@
+text
+@/* init.c --
+   
+   Part of: Alist
+   Contents: initialisation functions
+   Date: Sat Apr 27, 2002
+   
+   Abstract
+   
+   
+   
+   Copyright (c) 2002, 2003 Marco Maggi
+   
+   The author hereby grant  permission to use, copy, modify, distribute,
+   and  license this  software and  its documentation  for  any purpose,
+   provided that  existing copyright notices are retained  in all copies
+   and that  this notice is  included verbatim in any  distributions. No
+   written agreement, license, or royalty fee is required for any of the
+   authorized uses.   Modifications to this software  may be copyrighted
+   by their  authors and need  not follow the licensing  terms described
+   here, provided that the new  terms are clearly indicated on the first
+   page of each file where they apply.
+   
+   IN NO EVENT  SHALL THE AUTHOR OR DISTRIBUTORS BE  LIABLE TO ANY PARTY
+   FOR DIRECT,  INDIRECT, SPECIAL, INCIDENTAL,  OR CONSEQUENTIAL DAMAGES
+   ARISING OUT  OF THE USE OF  THIS SOFTWARE, ITS  DOCUMENTATION, OR ANY
+   DERIVATIVES  THEREOF, EVEN  IF THE  AUTHOR HAVE  BEEN ADVISED  OF THE
+   POSSIBILITY OF SUCH DAMAGE.
+   
+   THE  AUTHOR AND  DISTRIBUTORS SPECIFICALLY  DISCLAIM  ANY WARRANTIES,
+   INCLUDING,   BUT  NOT   LIMITED   TO,  THE   IMPLIED  WARRANTIES   OF
+   MERCHANTABILITY,    FITNESS   FOR    A   PARTICULAR    PURPOSE,   AND
+   NON-INFRINGEMENT.  THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, AND
+   THE   AUTHOR  AND   DISTRIBUTORS  HAVE   NO  OBLIGATION   TO  PROVIDE
+   MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
+   $Id: init.c,v 1.31 2003/08/18 19:53:04 marco Exp marco $
+*/
+
+
+
+/** ------------------------------------------------------------
+ ** Header files.
+ ** ----------------------------------------------------------*/
+
+#include "alistInt.h"
+
+
+/** ------------------------------------------------------------
+ ** Prototypes.
+ ** ----------------------------------------------------------*/
+
+EXTERN int	Alist_Init		_ANSI_ARGS_((Tcl_Interp *interp));
+EXTERN int	Alist_SafeInit		_ANSI_ARGS_((Tcl_Interp *interp));
+
+
+/** ------------------------------------------------------------
+ ** Global variables.
+ ** ----------------------------------------------------------*/
+
+EXTERN CONST Alist_StubTable		alistStub;
+
+
+/* Alist_Init --
+
+	Initialises the package.
+
+   Arguments:
+
+	interp -	the interpreter in which load the package
+
+   Results:
+
+        Returns TCL_OK or TCL_ERROR.
+
+   Side effects:
+
+        None.
+
+*/
+
+EXTERN int
+Alist_Init (Tcl_Interp *interp)
+{
+  int	e;
+
+#ifdef ALIST_ENABLE_NAMESPACE
+  Tcl_Obj *obj;
+  static char script[] = "namespace eval alist { namespace export \\[a-z\\]* }";
+#endif
+  
+
+#ifdef USE_TCL_STUBS
+  if (Tcl_InitStubs(interp, "8.2", 0) == NULL) {
+    return TCL_ERROR;
+  }
+#endif
+
+  e = Tcl_PkgProvideEx(interp, "alist", QUOTED_VERSION, (char *)&alistStub);
+  if (e != TCL_OK)
+    {
+      return e;
+    }
+
+#ifdef ALIST_ENABLE_NAMESPACE
+  obj = Tcl_NewStringObj(script, -1);
+  Tcl_IncrRefCount(obj);
+  e = Tcl_EvalObjEx(interp, obj, 0);
+  Tcl_DecrRefCount(obj);
+  if (e != TCL_OK)
+    {
+      return TCL_ERROR;
+    }
+
+  Tcl_CreateObjCommand(interp, "alist::at",	AlistAtCmd,	NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alist::assign", AlistAssignCmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alist::names",	AlistNamesCmd,	NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alist::values", AlistValuesCmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alist::version",AlistVersionCmd,NULL, NULL);
+#else
+  Tcl_CreateObjCommand(interp, "alist", AlistCmd, NULL, NULL);
+#endif /* defined ALIST_ENABLE_NAMESPACE */
+
+  return TCL_OK;
+}
+
+/* Alist_SafeInit --
+
+	Initialise the package for a safe Tcl interp.
+
+   Arguments:
+
+	interp -	the invoking interpreter
+
+   Results:
+
+        Return TCL_OK or TCL_ERROR.
+
+   Side effects:
+
+        none
+
+*/
+
+EXTERN int
+Alist_SafeInit(Tcl_Interp *interp)
+{
+  return Alist_Init (interp);
+}
+
+/* end of file */
+@
+
+
+1.31
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+   $Id: init.c,v 1.30 2003/08/18 11:15:53 marco Exp marco $
+d45 1
+a45 7
+#ifndef ALIST_STUBS_TEST
+#  include "alistInt.h"
+#else
+#  include "alist.h"
+#  include "alistTest.h"
+#endif
+
+a51 1
+#ifndef ALIST_STUBS_TEST
+a53 5
+#else
+EXTERN int	Alisttest_Init		_ANSI_ARGS_((Tcl_Interp *interp));
+EXTERN int	Alisttest_SafeInit	_ANSI_ARGS_((Tcl_Interp *interp));
+#endif
+
+d60 1
+a60 1
+#ifndef ALIST_STUBS_TEST
+d62 2
+a63 1
+EXTERN CONST Alist_StubsTable		alistStubs;
+d65 1
+a65 9
+EXTERN int
+Alist_Init (Tcl_Interp *interp)
+{
+#ifdef ALIST_ENABLE_NAMESPACE
+  int e;
+  Tcl_Obj *obj;
+  static char script[] = "namespace eval alist { namespace export \\[a-z\\]* }";
+#endif
+  
+d67 1
+a67 5
+#ifdef USE_TCL_STUBS
+  if (Tcl_InitStubs(interp, "8.2", 0) == NULL) {
+    return TCL_ERROR;
+  }
+#endif
+d69 1
+a69 9
+#ifdef ALIST_ENABLE_NAMESPACE
+  obj = Tcl_NewStringObj(script, -1);
+  Tcl_IncrRefCount(obj);
+  e = Tcl_EvalObjEx(interp, obj, 0);
+  Tcl_DecrRefCount(obj);
+  if (e != TCL_OK)
+    {
+      return TCL_ERROR;
+    }
+d71 1
+a71 8
+  Tcl_CreateObjCommand(interp, "alist::at",	AlistAtCmd,	NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alist::assign", AlistAssignCmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alist::names",	AlistNamesCmd,	NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alist::values", AlistValuesCmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alist::version",AlistVersionCmd,NULL, NULL);
+#else
+  Tcl_CreateObjCommand(interp, "alist", AlistCmd, NULL, NULL);
+#endif /* defined ALIST_ENABLE_NAMESPACE */
+d73 1
+a73 3
+  return Tcl_PkgProvideEx(interp, "alist", QUOTED_VERSION,
+			  (char *)&alistStubs);
+}
+d75 1
+d77 1
+a77 1
+#else /* if defined ALIST_STUBS_TEST */
+d79 1
+d82 1
+a82 1
+Alisttest_Init (Tcl_Interp *interp)
+d84 2
+a86 1
+  int e;
+d88 1
+a88 2
+  static char script[] = \
+    "namespace eval alist { namespace export at assign names values version }";
+d98 5
+a102 6
+#ifdef USE_BZTCL_STUBS
+  if (Alist_InitStubs(interp, QUOTED_VERSION, 0) == NULL) {
+    return TCL_ERROR;
+  }
+#endif
+
+d114 5
+a118 5
+  Tcl_CreateObjCommand(interp, "alisttest::at",	    AlistAtCmd,     NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alisttest::assign", AlistAssignCmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alisttest::names",  AlistNamesCmd,  NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alisttest::values", AlistValuesCmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alisttest::version",AlistVersionCmd,NULL, NULL);
+d120 1
+a120 1
+  Tcl_CreateObjCommand(interp, "alisttest", AlistCmd, NULL, NULL);
+d123 1
+a123 1
+  return Tcl_PkgProvide(interp, "alisttest", QUOTED_VERSION);
+a124 3
+
+#endif
+
+a143 1
+#ifndef ALIST_STUBS_TEST
+a148 9
+#else
+EXTERN int
+Alisttest_SafeInit(Tcl_Interp *interp)
+{
+  return Alisttest_Init (interp);
+}
+#endif
+
+
+@
+
+
+1.30
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+   $Id: init.c,v 1.29 2003/08/18 10:53:48 marco Exp marco $
+d49 1
+a63 12
+
+
+#define __TCL_COMMAND_ARGS__	\
+   ClientData D, Tcl_Interp *interp, int argc, Tcl_Obj *CONST objv[]
+
+EXTERN int	AlistCmd	_ANSI_ARGS_((__TCL_COMMAND_ARGS__));
+
+EXTERN int	AlistAtCmd	_ANSI_ARGS_((__TCL_COMMAND_ARGS__));
+EXTERN int	AlistAssignCmd	_ANSI_ARGS_((__TCL_COMMAND_ARGS__));
+EXTERN int	AlistNamesCmd	_ANSI_ARGS_((__TCL_COMMAND_ARGS__));
+EXTERN int	AlistValuesCmd	_ANSI_ARGS_((__TCL_COMMAND_ARGS__));
+EXTERN int	AlistVersionCmd	_ANSI_ARGS_((__TCL_COMMAND_ARGS__));
+a75 23
+#endif
+
+
+
+/* Alist_Init --
+
+	Initialise the package.
+
+   Arguments:
+
+	interp -	the invoking interpreter
+
+   Results:
+
+        Return TCL_OK or TCL_ERROR.
+
+   Side effects:
+
+        none
+
+*/
+
+#ifndef ALIST_STUBS_TEST
+a77 4
+#else
+EXTERN int
+Alisttest_Init (Tcl_Interp *interp)
+#endif
+d82 1
+a82 2
+  static char script[] = \
+    "namespace eval alist { namespace export at assign names values version }";
+a91 2
+#ifndef ALIST_STUBS_TEST
+
+d111 31
+a141 1
+#else /* not defined ALIST_STUBS_TEST */
+d162 2
+a163 7
+#endif /* not defined ALIST_STUBS_TEST */
+
+
+#ifndef ALIST_STUBS_TEST
+  return Tcl_PkgProvideEx(interp, "alist", QUOTED_VERSION,
+			  (char *)&alistStubs);
+#else
+a164 4
+#ifdef USE_BZTCL_STUBS
+  if (Alist_InitStubs(interp, QUOTED_VERSION, 0) == NULL) {
+    return TCL_ERROR;
+  }
+a165 4
+
+  return Tcl_PkgProvide(interp, "alisttest", QUOTED_VERSION);
+#endif
+}
+@
+
+
+1.29
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+   $Id: init.c,v 1.28 2003/08/18 10:17:09 marco Exp marco $
+d131 1
+a131 1
+#ifdef ALIST_STUBS_TEST
+d152 1
+a152 1
+#else
+d173 1
+a173 1
+#endif /* defined ALIST_STUBS_TEST */
+d180 7
+@
+
+
+1.28
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+   $Id: init.c,v 1.27 2003/08/18 09:50:27 marco Exp marco $
+d63 12
+d143 5
+a147 5
+  Tcl_CreateObjCommand(interp, "alist::at",	AListAtCmd,	NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alist::assign", AListAssignCmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alist::names",	AListNamesCmd,	NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alist::values", AListValuesCmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alist::version",AListVersionCmd,NULL, NULL);
+d149 1
+a149 1
+  Tcl_CreateObjCommand(interp, "alist", AListCmd, NULL, NULL);
+d164 5
+a168 5
+  Tcl_CreateObjCommand(interp, "alisttest::at",	    AListAtCmd,     NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alisttest::assign", AListAssignCmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alisttest::names",  AListNamesCmd,  NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alisttest::values", AListValuesCmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alisttest::version",AListVersionCmd,NULL, NULL);
+d170 1
+a170 1
+  Tcl_CreateObjCommand(interp, "alisttest", AListCmd, NULL, NULL);
+@
+
+
+1.27
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+   $Id: init.c,v 1.26 2003/08/18 09:50:14 marco Exp marco $
+d165 2
+a166 1
+  return Tcl_PkgProvideEx(interp, "alist", QUOTED_VERSION, &alistStubs);
+@
+
+
+1.26
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+   $Id: init.c,v 1.25 2003/02/01 05:50:25 marco Exp marco $
+d73 1
+a73 1
+EXTERN CONST Bztcl_StubsTable		bztclStubs;
+@
+
+
+1.25
+log
+@*** empty log message ***
+@
+text
+@d11 1
+a11 2
+   Copyright (c) 2002 Marco Maggi
+   email: <marcomaggi at tiscalinet dot it>
+d36 1
+a36 1
+   $Id: init.c,v 1.24 2003/01/31 19:15:59 marco Exp marco $
+d40 34
+a73 1
+#include "alistInt.h"
+d75 1
+d85 1
+a85 1
+	interp: the current interp
+d97 1
+d100 4
+d112 1
+d119 2
+d138 30
+a168 2
+
+  return Tcl_PkgProvide(interp, PACKAGE, QUOTED_VERSION);
+d178 1
+a178 1
+	interp: the current interp
+d190 1
+d196 7
+@
+
+
+1.24
+log
+@*** empty log message ***
+@
+text
+@d37 1
+a37 1
+   $Id: init.c,v 1.23 2002/12/26 11:01:48 marco Exp marco $
+a43 1
+#define PACKAGE		"alist"
+@
+
+
+1.23
+log
+@*** empty log message ***
+@
+text
+@d37 1
+a37 1
+   $Id: init.c,v 1.22 2002/12/26 10:48:05 marco Exp marco $
+d100 1
+a100 1
+  return Tcl_PkgProvide(interp, PACKAGE, VERSION);
+@
+
+
+1.22
+log
+@*** empty log message ***
+@
+text
+@d37 1
+a37 1
+   $Id: init.c,v 1.21 2002/12/26 10:38:58 marco Exp marco $
+d68 1
+a69 2
+
+#ifdef ALIST_ENABLE_NAMESPACE
+@
+
+
+1.21
+log
+@*** empty log message ***
+@
+text
+@d37 1
+a37 1
+   $Id: init.c,v 1.20 2002/10/26 13:47:31 marco Exp marco $
+d73 1
+a73 1
+    "namespace eval alist { namespace export at assign names }";
+d96 1
+d99 1
+a99 1
+#endir
+@
+
+
+1.20
+log
+@*** empty log message ***
+@
+text
+@d37 1
+a37 1
+   $Id: init.c,v 1.19 2002/08/05 07:09:25 marco Exp marco $
+d44 2
+d69 2
+d74 1
+a74 1
+
+d82 1
+a82 1
+
+d96 3
+d100 1
+a100 2
+
+  return Tcl_PkgProvide(interp, PACKAGE, FULLVERSION);
+@
+
+
+1.19
+log
+@*** empty log message ***
+@
+text
+@d14 9
+a22 4
+   This library is free software;  you can redistribute it and/or modify
+   it  under the  terms  of the  GNU  Lesser General  Public License  as
+   published by the Free Software  Foundation; either version 2.1 of the
+   License, or (at your option) any later version.
+d24 5
+a28 4
+   This library is  distributed in the hope that it  will be useful, but
+   WITHOUT  ANY   WARRANTY;  without   even  the  implied   warranty  of
+   MERCHANTABILITY  or FITNESS FOR  A PARTICULAR  PURPOSE.  See  the GNU
+   Lesser General Public License for more details.
+d30 8
+a37 6
+   You  should have received  a copy  of the  GNU Lesser  General Public
+   License along with  this library; if not, write  to the Free Software
+   Foundation, Inc.,  59 Temple Place, Suite 330,  Boston, MA 02111-1307
+   USA
+   
+   $Id: init.c,v 1.18 2002/07/31 15:48:44 marco Exp marco $
+@
+
+
+1.18
+log
+@*** empty log message ***
+@
+text
+@d29 1
+a29 1
+   $Id: init.c,v 1.17 2002/05/06 15:33:13 marco Exp marco $
+a33 4
+
+
+EXTERN int	Alist_Init		(Tcl_Interp *interp);
+EXTERN int	Alist_SafeInit		(Tcl_Interp *interp);
+@
+
+
+1.17
+log
+@*** empty log message ***
+@
+text
+@d29 1
+a29 1
+   $Id: init.c,v 1.16 2002/04/27 08:18:28 marco Exp marco $
+d90 1
+a90 1
+  return Tcl_PkgProvide(interp, "alist", VERSION);
+@
+
+
+1.16
+log
+@*** empty log message ***
+@
+text
+@d29 1
+a29 1
+   $Id: init.c,v 1.15 2002/04/27 08:13:37 marco Exp marco $
+a32 1
+#include <tcl.h>
+d84 4
+a87 3
+  Tcl_CreateObjCommand(interp, "alist::at", AlistCommandAt, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alist::assign", AlistCommandAssign, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "alist::names", AlistCommandNames, NULL, NULL);
+@
+
+
+1.15
+log
+@*** empty log message ***
+@
+text
+@d29 1
+a29 1
+   $Id$
+d65 2
+a66 1
+  char *script;
+a75 65
+  printf("\nBeginning of \"Alist_Init()\".\n");
+
+#ifdef ALIST_USE_EVALOBJEX
+  printf("Using: \"Tcl_EvalObjEx()\".\n");
+#else
+  printf("Using: \"Tcl_Eval()\".\n");
+#endif
+
+
+  script = "::namespace eval ::alist {}";
+
+#ifdef ALIST_USE_EVALOBJEX
+  obj = Tcl_NewStringObj(script, -1);
+
+  Tcl_IncrRefCount(obj);
+  e = Tcl_EvalObjEx(interp, obj, 0);
+  Tcl_DecrRefCount(obj);
+
+  if (e != TCL_OK)
+    {
+      return TCL_ERROR;
+    }
+#else
+  e = Tcl_Eval(interp, script);
+  if (e != TCL_OK)
+    {
+      return TCL_ERROR;
+    }
+#endif
+
+
+  Tcl_CreateObjCommand(interp, "::alist::at",		alist_command_at,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, "::alist::assign",	alist_command_assign,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, "::alist::names",	alist_command_names,
+		       NULL, NULL);
+
+
+  script = "puts \"Command list: [info commands ::alist::*]\"";
+
+#ifdef ALIST_USE_EVALOBJEX
+  obj = Tcl_NewStringObj(script, -1);
+  Tcl_IncrRefCount(obj);
+  e = Tcl_EvalObjEx(interp, obj, 0);
+  Tcl_DecrRefCount(obj);
+  if (e != TCL_OK)
+    {
+      return TCL_ERROR;
+    }
+#else
+  printf("Ready to segfault?\n");
+  printf("Evaluating script: %s\n", script);
+  e = Tcl_Eval(interp, script);
+  if (e != TCL_OK)
+    {
+      return TCL_ERROR;
+    }
+  printf("Hey!\n");
+#endif
+
+
+  script = "namespace eval ::alist { namespace export * }";
+
+#ifdef ALIST_USE_EVALOBJEX
+a83 7
+#else
+  e = Tcl_Eval(interp, script);
+  if (e != TCL_OK)
+    {
+      return TCL_ERROR;
+    }
+#endif
+d85 3
+a88 27
+  script = "puts \"Export list: [namespace eval ::alist {namespace export}]\"";
+
+#ifdef ALIST_USE_EVALOBJEX
+  obj = Tcl_NewStringObj(script, -1);
+  Tcl_IncrRefCount(obj);
+  e = Tcl_EvalObjEx(interp, obj, 0);
+  Tcl_DecrRefCount(obj);
+  if (e != TCL_OK)
+    {
+      return TCL_ERROR;
+    }
+#else
+  e = Tcl_Eval(interp, script);
+  if (e != TCL_OK)
+    {
+      return TCL_ERROR;
+    }
+#endif
+
+
+  e = Tcl_PkgProvide(interp, "alist", VERSION);
+  if (e != TCL_OK)
+    {
+      return e;
+    }
+
+  printf("End of \"Alist_Init()\".\n\n");
+d90 1
+a90 1
+  return TCL_OK;
+@
+
+
+1.14
+log
+@*** empty log message ***
+@
+text
+@d2 1
+a2 1
+
+d4 7
+a10 6
+   Contents: initialisation functions for the Alist library.
+
+   Abstract:
+
+
+
+d12 19
+a30 26
+   e-mail: <marcomaggi@@tiscalinet.it>
+
+   The author hereby grant  permission to use, copy, modify, distribute,
+   and  license this  software and  its documentation  for  any purpose,
+   provided that  existing copyright notices are retained  in all copies
+   and that  this notice is  included verbatim in any  distributions. No
+   written agreement, license, or royalty fee is required for any of the
+   authorized uses.   Modifications to this software  may be copyrighted
+   by their  authors and need  not follow the licensing  terms described
+   here, provided that the new  terms are clearly indicated on the first
+   page of each file where they apply.
+
+   IN NO EVENT  SHALL THE AUTHOR OR DISTRIBUTORS BE  LIABLE TO ANY PARTY
+   FOR DIRECT,  INDIRECT, SPECIAL, INCIDENTAL,  OR CONSEQUENTIAL DAMAGES
+   ARISING OUT  OF THE USE OF  THIS SOFTWARE, ITS  DOCUMENTATION, OR ANY
+   DERIVATIVES  THEREOF, EVEN  IF THE  AUTHOR HAVE  BEEN ADVISED  OF THE
+   POSSIBILITY OF SUCH DAMAGE.
+
+   THE  AUTHOR AND  DISTRIBUTORS SPECIFICALLY  DISCLAIM  ANY WARRANTIES,
+   INCLUDING,   BUT  NOT   LIMITED   TO,  THE   IMPLIED  WARRANTIES   OF
+   MERCHANTABILITY,    FITNESS   FOR    A   PARTICULAR    PURPOSE,   AND
+   NON-INFRINGEMENT.  THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, AND
+   THE   AUTHOR  AND   DISTRIBUTORS  HAVE   NO  OBLIGATION   TO  PROVIDE
+   MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
+   $Id: init.c,v 1.13 2002/03/25 15:18:24 marco Exp marco $ */
+a33 1
+#include "config.h"
+@
+
+
+1.13
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+   $Id: init.c,v 1.12 2002/03/25 15:15:02 marco Exp marco $ */
+d134 1
+@
+
+
+1.12
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+   $Id: init.c,v 1.11 2002/03/13 12:12:25 marco Exp marco $ */
+d40 1
+@
+
+
+1.11
+log
+@*** empty log message ***
+@
+text
+@a4 1
+   Date: Fri Mar  8, 2002
+d36 1
+a36 1
+   $Id: init.c,v 1.10 2002/03/13 10:07:04 marco Exp marco $ */
+d47 19
+d83 1
+a83 3
+
+#define USE_EVALOBJEX 1
+#if (USE_EVALOBJEX == 1)
+d92 1
+a92 1
+#if (USE_EVALOBJEX == 1)
+d122 1
+a122 1
+#if (USE_EVALOBJEX == 1)
+d144 1
+a144 1
+#if (USE_EVALOBJEX == 1)
+d164 1
+a164 1
+#if (USE_EVALOBJEX == 1)
+d182 1
+a182 1
+  e = Tcl_PkgProvide(interp, "alist", "0.1");
+d193 18
+@
+
+
+1.10
+log
+@*** empty log message ***
+@
+text
+@d37 1
+a37 1
+   $Id: init.c,v 1.9 2002/03/13 09:24:50 marco Exp marco $ */
+d66 1
+a66 1
+#define USE_EVALOBJEX 0
+@
+
+
+1.9
+log
+@*** empty log message ***
+@
+text
+@d37 1
+a37 1
+   $Id: init.c,v 1.8 2002/03/13 09:12:18 marco Exp marco $ */
+d63 4
+a66 1
+#define USE_EVALOBJEX 1
+d68 1
+a68 1
+  printf("Using: Tcl_EvalObjEx().\n");
+d70 1
+a70 1
+  printf("Using: Tcl_Eval.\n");
+d116 1
+a116 1
+  /* this causes the segfault */
+d122 1
+d171 2
+@
+
+
+1.8
+log
+@*** empty log message ***
+@
+text
+@d37 1
+a37 1
+   $Id: init.c,v 1.7 2002/03/13 09:11:04 marco Exp marco $ */
+d93 1
+a93 1
+  Tcl_CreateObjCommand(interp, "::alist::at",	 alist_command_at,
+d95 3
+a97 1
+  Tcl_CreateObjCommand(interp, "::alist::names", alist_command_names,
+@
+
+
+1.7
+log
+@*** empty log message ***
+@
+text
+@d37 1
+a37 1
+   $Id: init.c,v 1.6 2002/03/13 08:11:26 marco Exp marco $ */
+d93 4
+a96 2
+  Tcl_CreateObjCommand(interp, "::alist::key",	alist_command_key,  NULL, NULL);
+  Tcl_CreateObjCommand(interp, "::alist::keys", alist_command_keys, NULL, NULL);
+@
+
+
+1.6
+log
+@*** empty log message ***
+@
+text
+@d37 1
+a37 1
+   $Id: init.c,v 1.5 2002/03/13 07:47:21 marco Exp marco $ */
+d52 3
+d57 1
+a57 1
+  if (Tcl_InitStubs(interp, "8.3", 0) == NULL) {
+d63 23
+a85 1
+  e = Tcl_Eval(interp, "::namespace eval ::alist {}");
+d90 2
+d95 56
+a150 2
+  
+  e = Tcl_Eval(interp, "::namespace eval ::tat {::namespace export *}");
+d155 2
+@
+
+
+1.5
+log
+@*** empty log message ***
+@
+text
+@d37 1
+a37 1
+   $Id: init.c,v 1.4 2002/03/08 19:31:58 marco Exp marco $ */
+d66 2
+a67 2
+  Tcl_CreateObjCommand(interp, "::alist::key",	alist_command, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "::alist::keys", alist_command, NULL, NULL);
+@
+
+
+1.4
+log
+@*** empty log message ***
+@
+text
+@d4 1
+a4 1
+   Contents: 
+d14 24
+a37 22
+  The author  hereby grant permission to use,  copy, modify, distribute,
+  and  license this  software  and its  documentation  for any  purpose,
+  provided that  existing copyright notices  are retained in  all copies
+  and that  this notice  is included verbatim  in any  distributions. No
+  written agreement, license, or royalty  fee is required for any of the
+  authorized uses.  Modifications to this software may be copyrighted by
+  their authors and need not  follow the licensing terms described here,
+  provided that the new terms are clearly indicated on the first page of
+  each file where they apply.
+
+  IN NO  EVENT SHALL THE AUTHOR  OR DISTRIBUTORS BE LIABLE  TO ANY PARTY
+  FOR  DIRECT, INDIRECT, SPECIAL,  INCIDENTAL, OR  CONSEQUENTIAL DAMAGES
+  ARISING OUT  OF THE  USE OF THIS  SOFTWARE, ITS DOCUMENTATION,  OR ANY
+  DERIVATIVES  THEREOF, EVEN  IF THE  AUTHOR  HAVE BEEN  ADVISED OF  THE
+  POSSIBILITY OF SUCH DAMAGE.
+
+  THE  AUTHOR  AND DISTRIBUTORS  SPECIFICALLY  DISCLAIM ANY  WARRANTIES,
+  INCLUDING,   BUT   NOT  LIMITED   TO,   THE   IMPLIED  WARRANTIES   OF
+  MERCHANTABILITY,    FITNESS   FOR    A    PARTICULAR   PURPOSE,    AND
+  NON-INFRINGEMENT.  THIS  SOFTWARE IS PROVIDED  ON AN "AS  IS" BASIS,
+  AND  THE  AUTHOR  AND  DISTRIBUTORS  HAVE  NO  OBLIGATION  TO  PROVIDE
+  MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+a38 1
+   $Id: init.c,v 1.3 2002/03/08 19:29:18 marco Exp marco $ */
+a40 1
+#include "config.h"
+d44 2
+a45 1
+/*** defines ***/
+d48 10
+d60 5
+a64 1
+/*** typedefs ***/
+d66 14
+d81 2
+a82 7
+
+/*** prototypes ***/
+
+
+
+/*** local variables ***/
+
+a84 19
+
+/* Alist_Init --
+
+	Initialise the package
+
+   Arguments:
+
+	interp: the current interp
+
+   Results:
+
+        return void
+
+   Side effects:
+
+        none
+
+*/
+
+d86 1
+a86 1
+Alist_Init (Tcl_Interp *interp)
+d88 1
+a88 4
+  Tcl_CreateObjCommand(interp, "alist", alist_command, 0, 0);
+  
+  Tcl_PkgProvide(interp, "alist", ALIST_VERSION);
+  return TCL_OK;
+a89 1
+
+@
+
+
+1.3
+log
+@*** empty log message ***
+@
+text
+@d37 1
+a37 1
+   $Id: init.c,v 1.2 2002/03/08 18:55:44 marco Exp marco $ */
+d80 1
+a80 1
+EXTERN void
+@
+
+
+1.2
+log
+@*** empty log message ***
+@
+text
+@d1 1
+a1 1
+/* INIT.C --
+d37 1
+a37 1
+   $Id: init.c,v 1.1 2002/03/08 18:55:32 marco Exp marco $ */
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d37 1
+a37 1
+   $Id$ */
+d40 1
+@

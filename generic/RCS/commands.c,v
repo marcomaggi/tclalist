@@ -1,0 +1,1169 @@
+head	1.15;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.15
+date	2003.09.12.17.46.22;	author marco;	state Exp;
+branches;
+next	1.14;
+
+1.14
+date	2003.09.12.17.43.06;	author marco;	state Exp;
+branches;
+next	1.13;
+
+1.13
+date	2003.09.12.17.38.56;	author marco;	state Exp;
+branches;
+next	1.12;
+
+1.12
+date	2003.08.18.10.53.47;	author marco;	state Exp;
+branches;
+next	1.11;
+
+1.11
+date	2003.08.18.10.43.16;	author marco;	state Exp;
+branches;
+next	1.10;
+
+1.10
+date	2003.08.18.10.38.27;	author marco;	state Exp;
+branches;
+next	1.9;
+
+1.9
+date	2003.08.18.09.50.29;	author marco;	state Exp;
+branches;
+next	1.8;
+
+1.8
+date	2003.01.31.19.16.19;	author marco;	state Exp;
+branches;
+next	1.7;
+
+1.7
+date	2002.12.26.11.00.00;	author marco;	state Exp;
+branches;
+next	1.6;
+
+1.6
+date	2002.12.26.10.48.03;	author marco;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	2002.10.26.13.46.43;	author marco;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	2002.05.06.15.56.44;	author marco;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	2002.05.06.15.37.16;	author marco;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	2002.05.06.15.31.56;	author marco;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2002.05.06.13.37.44;	author marco;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.15
+log
+@*** empty log message ***
+@
+text
+@/* commands.c --
+   
+   Part of: AList
+   Contents: command functions
+   Date: Mon May  6, 2002
+   
+   Abstract
+   
+   
+   
+   Copyright (c) 2002, 2003 Marco Maggi
+   
+   The author hereby grant  permission to use, copy, modify, distribute,
+   and  license this  software and  its documentation  for  any purpose,
+   provided that  existing copyright notices are retained  in all copies
+   and that  this notice is  included verbatim in any  distributions. No
+   written agreement, license, or royalty fee is required for any of the
+   authorized uses.   Modifications to this software  may be copyrighted
+   by their  authors and need  not follow the licensing  terms described
+   here, provided that the new  terms are clearly indicated on the first
+   page of each file where they apply.
+   
+   IN NO EVENT  SHALL THE AUTHOR OR DISTRIBUTORS BE  LIABLE TO ANY PARTY
+   FOR DIRECT,  INDIRECT, SPECIAL, INCIDENTAL,  OR CONSEQUENTIAL DAMAGES
+   ARISING OUT  OF THE USE OF  THIS SOFTWARE, ITS  DOCUMENTATION, OR ANY
+   DERIVATIVES  THEREOF, EVEN  IF THE  AUTHOR HAVE  BEEN ADVISED  OF THE
+   POSSIBILITY OF SUCH DAMAGE.
+   
+   THE  AUTHOR AND  DISTRIBUTORS SPECIFICALLY  DISCLAIM  ANY WARRANTIES,
+   INCLUDING,   BUT  NOT   LIMITED   TO,  THE   IMPLIED  WARRANTIES   OF
+   MERCHANTABILITY,    FITNESS   FOR    A   PARTICULAR    PURPOSE,   AND
+   NON-INFRINGEMENT.  THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, AND
+   THE   AUTHOR  AND   DISTRIBUTORS  HAVE   NO  OBLIGATION   TO  PROVIDE
+   MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
+   $Id: commands.c,v 1.14 2003/09/12 17:43:06 marco Exp marco $
+*/
+
+
+
+/** ------------------------------------------------------------
+ ** Header files.
+ ** ----------------------------------------------------------*/
+
+#ifndef ALIST_STUBS_TEST
+#  include "alistInt.h"
+#else
+#  include "alistTest.h"
+#endif
+
+
+
+/** ------------------------------------------------------------
+ ** Defines.
+ ** ----------------------------------------------------------*/
+
+#ifdef ALIST_ENABLE_NAMESPACE
+#  define	NUMARG		1
+#  define	DELTAARG	0
+#else
+#  define	NUMARG		2
+#  define	DELTAARG	1
+#endif
+
+
+/** ------------------------------------------------------------
+ ** Typedefs.
+ ** ----------------------------------------------------------*/
+
+/*SubcommandsTable --
+ 
+   Used to select a subcommand function callback.
+*/
+
+typedef struct SubcommandsTable {
+  char *name;
+  int (*function) _ANSI_ARGS_((__TCL_COMMAND_ARGS__));
+} SubcommandsTable;
+
+
+
+/** ------------------------------------------------------------
+ ** Prototypes.
+ ** ----------------------------------------------------------*/
+
+#ifdef ALIST_STUBS_TEST
+
+EXTERN int	AlistCmd	_ANSI_ARGS_((__TCL_COMMAND_ARGS__));
+
+EXTERN int	AlistAtCmd	_ANSI_ARGS_((__TCL_COMMAND_ARGS__));
+EXTERN int	AlistAssignCmd	_ANSI_ARGS_((__TCL_COMMAND_ARGS__));
+EXTERN int	AlistNamesCmd	_ANSI_ARGS_((__TCL_COMMAND_ARGS__));
+EXTERN int	AlistValuesCmd	_ANSI_ARGS_((__TCL_COMMAND_ARGS__));
+EXTERN int	AlistVersionCmd	_ANSI_ARGS_((__TCL_COMMAND_ARGS__));
+
+#endif
+
+
+
+/* AlistCmd --
+
+	Callback function for the [alist] command.
+
+   Arguments:
+
+	D: unused
+	interp: the interp to which the Tcl command belongs
+	objc: the number of parameters in the call
+	objv: the call parameters
+
+   Results:
+
+	Return TCL_OK or TCL_ERROR
+
+   Side effects:
+
+	none
+
+*/
+
+#ifndef ALIST_ENABLE_NAMESPACE
+
+int
+AlistCmd (__TCL_COMMAND_ARGS__)
+{
+  int	e;
+  int	index;
+  static CONST SubcommandsTable table[] = {
+    { "at",		AlistAtCmd },
+    { "assign",		AlistAssignCmd },
+    { "names",		AlistNamesCmd },
+    { "values",		AlistValuesCmd },
+    { "version",	AlistVersionCmd },
+    { NULL,		NULL }
+  };
+  static CONST SubcommandsTable *tablePtr = table;
+  
+
+  if (objc < 2)
+    {
+      Tcl_WrongNumArgs(interp, 1, objv, "command ?options?");
+      Tcl_SetErrorCode(interp, ALIST_ERRCODE_WRONG_NUM_ARGS, NULL);
+      return TCL_ERROR;
+    }
+
+  e = Tcl_GetIndexFromObjStruct(interp, objv[1], tablePtr,
+				sizeof(SubcommandsTable), "option",
+				TCL_EXACT, &index);
+  if (e != TCL_OK)
+    {
+      Tcl_SetErrorCode(interp, ALIST_ERRCODE_INVALID_ARGUMENT, NULL);
+      return e;
+    }
+
+  return table[index].function(D, interp, objc, objv);
+}
+
+#endif
+
+
+/* AlistAssignCmd --
+
+	Set a new  value for the element associated with  a key Keys are
+	all  the even elements.  The value  associated to  a key  is the
+	element following it.
+
+   Arguments:
+
+	D: unused
+	interp: the interp to which the Tcl command belongs
+	objc: the number of parameters in the call
+	objv: the call parameters
+
+   Results:
+
+	Return TCL_OK or TCL_ERROR
+
+   Side effects:
+
+	none
+
+*/
+
+int
+AlistAssignCmd (__TCL_COMMAND_ARGS__)
+{
+  int		e;
+  Tcl_Obj *	alist;
+  Tcl_Obj *	key;
+  Tcl_Obj *	value;
+
+
+  if (objc != 4+DELTAARG)
+    {
+      Tcl_WrongNumArgs(interp, NUMARG, objv, "alist key value");
+      Tcl_SetErrorCode(interp, ALIST_ERRCODE_WRONG_NUM_ARGS, 0);
+      return TCL_ERROR;
+    }
+
+  alist = objv[1+DELTAARG];
+  key	= objv[2+DELTAARG];
+  value = objv[3+DELTAARG];
+
+  e = Alist_ObjAssign(interp, alist, key, value, &alist);
+  if (e != TCL_OK)
+    {
+      return e;
+    }
+
+  Tcl_SetObjResult(interp, alist);
+  return TCL_OK;
+}
+
+
+
+/* AlistAtCmd --
+
+	Search a key in a  list and return the corresponding value. Keys
+	are all the even elements. The  value associated to a key is the
+	element following it.
+
+   Arguments:
+
+	D: unused
+	interp: the interp to which the Tcl command belongs
+	objc: the number of parameters in the call
+	objv: the call parameters
+
+   Results:
+
+	Return TCL_OK or TCL_ERROR
+
+   Side effects:
+
+	none
+
+*/
+
+int
+AlistAtCmd (__TCL_COMMAND_ARGS__)
+{
+  int		e;
+  Tcl_Obj *	alist;
+  Tcl_Obj *	key;
+  Tcl_Obj *	value;
+
+
+  if (objc != 3+DELTAARG)
+    {
+      Tcl_WrongNumArgs(interp, NUMARG, objv, "alist key");
+      Tcl_SetErrorCode(interp, ALIST_ERRCODE_WRONG_NUM_ARGS, 0);
+      return TCL_ERROR;
+    }
+
+  alist = objv[1+DELTAARG];
+  key	= objv[2+DELTAARG];
+
+  e = Alist_ObjAt(interp, alist, key, &value);
+  if (e != TCL_OK)
+    {
+      return e;
+    }
+
+  Tcl_SetObjResult(interp, value);
+  return TCL_OK;
+}
+
+
+
+/* AlistNamesCmd --
+
+	Return a list holding all the keys in the alist, that is: a list
+	holding elements number 0, 2, 4, 6, ...
+
+   Arguments:
+
+	D: unused
+	interp: the interp to which the Tcl command belongs
+	objc: the number of parameters in the call
+	objv: the call parameters
+
+   Results:
+
+	Return TCL_OK or TCL_ERROR.
+
+   Side effects:
+
+	none
+
+*/
+
+int
+AlistNamesCmd (__TCL_COMMAND_ARGS__)
+{
+  int		e;
+  Tcl_Obj *	alist;
+  Tcl_Obj *	names;
+
+
+  if (objc != 2+DELTAARG)
+    {
+      Tcl_WrongNumArgs(interp, NUMARG, objv, "alist");
+      Tcl_SetErrorCode(interp, ALIST_ERRCODE_WRONG_NUM_ARGS, 0);
+      return TCL_ERROR;
+    }
+
+  alist = objv[1+DELTAARG];
+
+  e = Alist_GetNames(interp, alist, &names);
+  if (e != TCL_OK)
+    {
+      return e;
+    }
+
+  Tcl_SetObjResult(interp, names);
+  return TCL_OK;
+}
+
+
+
+/* AlistValuesCmd --
+
+	Return a list holding all the values in the alist, that is: a list
+	holding elements number 1, 3, 5, ...
+
+   Arguments:
+
+	D: unused
+	interp: the interp to which the Tcl command belongs
+	objc: the number of parameters in the call
+	objv: the call parameters
+
+   Results:
+
+	Return TCL_OK or TCL_ERROR.
+
+   Side effects:
+
+	none
+
+*/
+
+int
+AlistValuesCmd (__TCL_COMMAND_ARGS__)
+{
+  int		e;
+  Tcl_Obj *	alist;
+  Tcl_Obj *	values;
+
+
+  if (objc != 2+DELTAARG)
+    {
+      Tcl_WrongNumArgs(interp, NUMARG, objv, "alist");
+      Tcl_SetErrorCode(interp, ALIST_ERRCODE_WRONG_NUM_ARGS, 0);
+      return TCL_ERROR;
+    }
+
+  alist = objv[1+DELTAARG];
+
+  e = Alist_GetValues(interp, alist, &values);
+  if (e != TCL_OK)
+    {
+      return e;
+    }
+
+  Tcl_SetObjResult(interp, values);
+  return TCL_OK;
+}
+
+
+
+/* AlistVersionCmd --
+
+	Returns the library version.
+
+   Arguments:
+
+	D -		pointer to the interpreter associated data
+	interp -	the interp to which the Tcl command belongs
+	objc -		the number of parameters in the call
+	objv -		the call parameters
+
+   Results:
+
+	Return TCL_OK or TCL_ERROR.
+
+   Side effects:
+
+	none
+
+*/
+
+int
+AlistVersionCmd (__TCL_COMMAND_ARGS__)
+{
+  Tcl_Obj *	objPtr;
+
+
+  if (objc != 1+DELTAARG)
+    {
+      Tcl_WrongNumArgs(interp, NUMARG, objv, NULL);
+      Tcl_SetErrorCode(interp, ALIST_ERRCODE_WRONG_NUM_ARGS, 0);
+      return TCL_ERROR;
+    }
+
+  objPtr = Tcl_NewStringObj(QUOTED_VERSION, -1);
+  Tcl_SetObjResult(interp, objPtr);
+  return TCL_OK;
+}
+
+
+/* end of file */
+@
+
+
+1.14
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+   $Id: commands.c,v 1.13 2003/09/12 17:38:56 marco Exp marco $
+d65 15
+d128 1
+a128 1
+  static CONST Moretcl_SubcommandsTable table[] = {
+d136 1
+a136 1
+  SubcommandsTable *tablePtr = table;
+a395 1
+  int		e;
+@
+
+
+1.13
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+   $Id: commands.c,v 1.12 2003/08/18 10:53:47 marco Exp marco $
+d93 1
+a93 1
+	argc: the number of parameters in the call
+d124 1
+a124 1
+  if (argc < 2)
+d140 1
+a140 1
+  return table[index].function(D, interp, argc, objv);
+d156 1
+a156 1
+	argc: the number of parameters in the call
+d178 1
+a178 1
+  if (argc != 4+DELTAARG)
+d211 1
+a211 1
+	argc: the number of parameters in the call
+d233 1
+a233 1
+  if (argc != 3+DELTAARG)
+d264 1
+a264 1
+	argc: the number of parameters in the call
+d285 1
+a285 1
+  if (argc != 2+DELTAARG)
+d315 1
+a315 1
+	argc: the number of parameters in the call
+d336 1
+a336 1
+  if (argc != 2+DELTAARG)
+d365 1
+a365 1
+	argc -		the number of parameters in the call
+d385 1
+a385 1
+  if (argc != 1+DELTAARG)
+@
+
+
+1.12
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+   $Id: commands.c,v 1.11 2003/08/18 10:43:16 marco Exp marco $
+d48 1
+a48 1
+#  include "alist.h"
+a72 3
+#define __TCL_COMMAND_ARGS__	\
+   ClientData D, Tcl_Interp *interp, int argc, Tcl_Obj *CONST objv[]
+
+a84 16
+/** ------------------------------------------------------------
+ ** Typedefs
+ ** ----------------------------------------------------------*/
+
+/* SubcommandsTable --
+ 
+   Structure used to declare pairs of subcommand strings and functions.
+*/
+
+typedef struct SubcommandsTable {
+  char *name;
+  int (*function) _ANSI_ARGS_((__TCL_COMMAND_ARGS__));
+} SubcommandsTable;
+
+
+
+d113 1
+a113 1
+  static SubcommandsTable table[] = {
+@
+
+
+1.11
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+   $Id: commands.c,v 1.10 2003/08/18 10:38:27 marco Exp marco $
+d65 20
+@
+
+
+1.10
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+   $Id: commands.c,v 1.9 2003/08/18 09:50:29 marco Exp marco $
+d84 1
+a84 1
+/* AListCmd --
+d108 1
+a108 1
+AListCmd (__TCL_COMMAND_ARGS__)
+d113 5
+a117 5
+    { "at",		AListAtCmd },
+    { "assign",		AListAssignCmd },
+    { "names",		AListNamesCmd },
+    { "values",		AListValuesCmd },
+    { "version",	AListVersionCmd },
+d145 1
+a145 1
+/* AListAssignCmd --
+d169 1
+a169 1
+AListAssignCmd (__TCL_COMMAND_ARGS__)
+d188 1
+a188 1
+  e = AList_ObjAssign(interp, alist, key, value, &alist);
+d200 1
+a200 1
+/* AListAtCmd --
+d224 1
+a224 1
+AListAtCmd (__TCL_COMMAND_ARGS__)
+d242 1
+a242 1
+  e = AList_ObjAt(interp, alist, key, &value);
+d254 1
+a254 1
+/* AListNamesCmd --
+d277 1
+a277 1
+AListNamesCmd (__TCL_COMMAND_ARGS__)
+d293 1
+a293 1
+  e = AList_GetNames(interp, alist, &names);
+d305 1
+a305 1
+/* AListValuesCmd --
+d328 1
+a328 1
+AListValuesCmd (__TCL_COMMAND_ARGS__)
+d344 1
+a344 1
+  e = AList_GetValues(interp, alist, &values);
+d356 1
+a356 1
+/* AListVersionCmd --
+d378 1
+a378 1
+AListVersionCmd (__TCL_COMMAND_ARGS__)
+@
+
+
+1.9
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+   $Id: commands.c,v 1.8 2003/01/31 19:16:19 marco Exp marco $
+a394 2
+
+
+@
+
+
+1.8
+log
+@*** empty log message ***
+@
+text
+@d11 1
+a11 2
+   Copyright (c) 2002 Marco Maggi
+   email: <marcomaggi at tiscalinet dot it>
+d36 1
+a36 1
+   $Id: commands.c,v 1.7 2002/12/26 11:00:00 marco Exp marco $
+d40 16
+a55 1
+#include "alistInt.h"
+d65 7
+d73 3
+a75 2
+ *
+ */
+a80 1
+
+@
+
+
+1.7
+log
+@*** empty log message ***
+@
+text
+@d37 1
+a37 1
+   $Id: commands.c,v 1.6 2002/12/26 10:48:03 marco Exp marco $
+d370 1
+a370 1
+  objPtr = Tcl_NewStringObj(VERSION, -1);
+@
+
+
+1.6
+log
+@*** empty log message ***
+@
+text
+@d37 1
+a37 1
+   $Id: commands.c,v 1.5 2002/10/26 13:46:43 marco Exp marco $
+d45 1
+a46 1
+{
+d48 1
+a48 1
+}
+d84 1
+a84 1
+#ifdef ALIST_ENABLE_NAMESPACE
+d150 4
+a153 2
+  int e;
+  Tcl_Obj *alist;
+d156 1
+a156 1
+  if (argc != 4)
+d163 5
+a167 2
+  alist = objv[1];
+  e = AList_ObjAssign(interp, alist, objv[2], objv[3], &alist);
+d205 4
+a208 2
+  int e;
+  Tcl_Obj *value;
+d211 1
+a211 1
+  if (argc != 3)
+d218 4
+a221 1
+  e = AList_ObjAt(interp, objv[1], objv[2], &value);
+d258 3
+a260 2
+  int e;
+  Tcl_Obj *names;
+d263 1
+a263 1
+  if (argc != 2)
+d270 3
+a272 1
+  e = AList_GetNames(interp, objv[1], &names);
+d309 3
+a311 2
+  int e;
+  Tcl_Obj *values;
+d314 1
+a314 1
+  if (argc != 2)
+d321 3
+a323 1
+  e = AList_GetValues(interp, objv[1], &values);
+d363 1
+a363 1
+  if (argc != 2)
+@
+
+
+1.5
+log
+@*** empty log message ***
+@
+text
+@d37 1
+a37 1
+   $Id: commands.c,v 1.4 2002/05/06 15:56:44 marco Exp marco $
+d43 79
+d156 1
+a156 1
+      Tcl_WrongNumArgs(interp, 1, objv, "alist key value");
+d206 1
+a206 1
+      Tcl_WrongNumArgs(interp, 1, objv, "alist key");
+d254 1
+a254 1
+      Tcl_WrongNumArgs(interp, 1, objv, "alist");
+d302 1
+a302 1
+      Tcl_WrongNumArgs(interp, 1, objv, "alist");
+d318 40
+@
+
+
+1.4
+log
+@*** empty log message ***
+@
+text
+@d14 9
+a22 4
+   This library is free software;  you can redistribute it and/or modify
+   it  under the  terms  of the  GNU  Lesser General  Public License  as
+   published by the Free Software  Foundation; either version 2.1 of the
+   License, or (at your option) any later version.
+d24 5
+a28 4
+   This library is  distributed in the hope that it  will be useful, but
+   WITHOUT  ANY   WARRANTY;  without   even  the  implied   warranty  of
+   MERCHANTABILITY  or FITNESS FOR  A PARTICULAR  PURPOSE.  See  the GNU
+   Lesser General Public License for more details.
+d30 8
+a37 6
+   You  should have received  a copy  of the  GNU Lesser  General Public
+   License along with  this library; if not, write  to the Free Software
+   Foundation, Inc.,  59 Temple Place, Suite 330,  Boston, MA 02111-1307
+   USA
+   
+   $Id: commands.c,v 1.3 2002/05/06 15:37:16 marco Exp marco $
+@
+
+
+1.3
+log
+@*** empty log message ***
+@
+text
+@d29 1
+a29 1
+   $Id: commands.c,v 1.2 2002/05/06 15:31:56 marco Exp marco $
+d75 1
+a75 1
+  e = AList_Assign(interp, alist, Tcl_GetString(objv[2]), objv[3], &alist);
+d124 1
+a124 1
+  e = AList_At(interp, objv[1], Tcl_GetString(objv[2]), &value);
+@
+
+
+1.2
+log
+@*** empty log message ***
+@
+text
+@d29 1
+a29 1
+   $Id: commands.c,v 1.1 2002/05/06 13:37:44 marco Exp marco $
+d64 2
+a65 1
+  
+d74 2
+a75 1
+  e = AList_Assign(interp, objv[1], Tcl_GetString(objv[2]), objv[3]);
+d209 1
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d29 1
+a29 1
+   $Id$
+d63 2
+a64 10
+  int e, i, length, knum;
+  Tcl_Obj *alist, *key, *value;
+  Tcl_Obj **obs;
+  char **keys;  
+
+
+  /*
+   * Check arguments. Synopsis: ::alist::assign list key value
+   */
+
+d69 1
+a69 1
+      Tcl_SetErrorCode(interp, "WRONG_NUM_ARGS", 0);
+d73 1
+a73 16
+
+  /*
+   * Access alist elements.
+   */
+
+  alist	= objv[1];
+  if (Tcl_IsShared(alist))
+    {
+      alist = Tcl_DuplicateObj(alist);
+    }
+  Tcl_IncrRefCount(alist);
+
+  key	= objv[2];
+  value	= objv[3];
+
+  e = Tcl_ListObjGetElements(interp, alist, &length, &obs);
+a75 1
+      Tcl_DecrRefCount(alist);
+a78 55
+
+  /*
+   * Build  a NULL-terminassigned array of  string pointers to  be used with
+   * Tcl_GetIndexFromObj(),  the strings are  the keys of the  alist. If
+   *  the alist  has an  odd  number of  elements, the  last element  is
+   * ignored.
+   */
+
+  knum = length/2;
+  keys = (char **) Tcl_Alloc(sizeof(char *) * (knum+1));
+  for (i=0; i<knum; ++i)
+    {
+      keys[i] = Tcl_GetString(obs[i*2]);
+    }
+  keys[knum] = NULL;
+
+  
+  /*
+   * Find the key string.
+   */
+
+  e = Tcl_GetIndexFromObj(interp, key, keys, "key", 0, &i);
+  Tcl_Free((char *) keys);
+  if (e != TCL_OK)
+    {
+      Tcl_DecrRefCount(alist);
+      return e;
+    }
+
+
+  /*
+   * Store the element.
+   */
+
+  i *= 2;
+  if (i == length)
+    {
+      Tcl_DecrRefCount(alist);
+
+      Tcl_SetResult(interp, "too few elements in list", TCL_STATIC);
+      Tcl_SetErrorCode(interp, "INVALID_ARGUMENT", NULL);
+      return TCL_ERROR;
+    }
+
+  e = Tcl_ListObjReplace(interp, alist, i+1, 1, 1, &value);
+  if (e != TCL_OK)
+    {
+      Tcl_DecrRefCount(alist);
+      return e;
+    }
+
+  /*
+   * The result is the new list.
+   */
+
+a79 1
+  Tcl_DecrRefCount(alist);
+d111 2
+a112 9
+  int e, i, length, knum;
+  Tcl_Obj *alist, *key;
+  Tcl_Obj **obs;
+  char **keys;  
+
+
+  /*
+   * Check arguments. Synopsis: ::alist::key list key
+   */
+d118 1
+a118 1
+      Tcl_SetErrorCode(interp, "WRONG_NUM_ARGS", 0);
+d122 1
+a122 37
+
+  /*
+   * Access alist elements.
+   */
+
+  alist	= objv[1];
+  key	= objv[2];
+
+  e = Tcl_ListObjGetElements(interp, alist, &length, &obs);
+  if (e != TCL_OK)
+    {
+      return e;
+    }
+
+
+  /*
+   * Build  a NULL-terminated array of  string pointers to  be used with
+   * Tcl_GetIndexFromObj(),  the strings are  the keys of the  alist. If
+   *  the alist  has an  odd  number of  elements, the  last element  is
+   * ignored.
+   */
+
+  knum = length/2;
+  keys = (char **) Tcl_Alloc(sizeof(char *) * (knum+1));
+  for (i=0; i<knum; ++i)
+    {
+      keys[i] = Tcl_GetString(obs[i*2]);
+    }
+  keys[knum] = NULL;
+
+  
+  /*
+   * Find the key string.
+   */
+
+  e = Tcl_GetIndexFromObj(interp, key, keys, "key", 0, &i);
+  Tcl_Free((char *) keys);
+d128 1
+a128 6
+
+  /*
+   * The result is the selected element.
+   */
+
+  Tcl_SetObjResult(interp, obs[2*i+1]);
+d159 2
+a160 3
+  int e, i, length;
+  Tcl_Obj *alist, *keys;
+  Tcl_Obj **obs;
+a162 4
+  /*
+   * Check arguments. Synopsis: ::alist::keys list
+   */
+
+d166 1
+a166 1
+      Tcl_SetErrorCode(interp, "WRONG_NUM_ARGS", 0);
+d170 1
+a170 7
+
+  /*
+   * Access alist elements.
+   */
+
+  alist	= objv[1];
+  e = Tcl_ListObjGetElements(interp, alist, &length, &obs);
+d176 1
+a176 30
+
+  /*
+   *  Build a  new  list  and fill  it  with the  even  elements in  the
+   * alist. If the list has an odd number of elements, ignore the last.
+   */
+
+  keys = Tcl_NewListObj(0, 0);
+  Tcl_IncrRefCount(keys);
+  
+  if (length % 2)
+    {
+      --length;
+    }
+
+  for (i=0; i<length; i+=2)
+    {
+      e = Tcl_ListObjAppendElement(interp, keys, obs[i]);
+      if (e)
+	{
+	  Tcl_DecrRefCount(keys);
+	  return e;
+	}
+    }
+
+  /*
+   * The result is the keys list.
+   */
+
+  Tcl_SetObjResult(interp, keys);
+  Tcl_DecrRefCount(keys);
+d207 1
+a207 4
+  int e, i, length;
+  Tcl_Obj *alist, *keys;
+  Tcl_Obj **obs;
+
+a208 3
+  /*
+   * Check arguments. Synopsis: ::alist::keys list
+   */
+d213 1
+a213 1
+      Tcl_SetErrorCode(interp, "WRONG_NUM_ARGS", 0);
+d217 1
+a217 7
+
+  /*
+   * Access alist elements.
+   */
+
+  alist	= objv[1];
+  e = Tcl_ListObjGetElements(interp, alist, &length, &obs);
+d223 1
+a223 30
+
+  /*
+   * Build a new list and fill it with the odd elements in the alist. If
+   * the list has an odd number of elements, ignore the last.
+   */
+
+  keys = Tcl_NewListObj(0, 0);
+  Tcl_IncrRefCount(keys);
+  
+  if (length % 2)
+    {
+      --length;
+    }
+
+  for (i=1; i<length; i+=2)
+    {
+      e = Tcl_ListObjAppendElement(interp, keys, obs[i]);
+      if (e)
+	{
+	  Tcl_DecrRefCount(keys);
+	  return e;
+	}
+    }
+
+  /*
+   * The result is the values list.
+   */
+
+  Tcl_SetObjResult(interp, keys);
+  Tcl_DecrRefCount(keys);
+@
