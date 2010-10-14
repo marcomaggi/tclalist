@@ -1,7 +1,6 @@
 
-		 AList Experimental Package
-		 --------------------------
-		       by Marco Maggi
+			  TclAList
+			  ========
 
 
 Topics
@@ -19,7 +18,7 @@ Topics
 -----------
 
 This package  implements a  set of experimental  commands to
-access  a  list of  elements  as  key/value  pairs. All  the
+access  a list  of  elements as  key/value  pairs.  All  the
 commands are created in the "alist" namespace.
 
   The purpose of this  library is to provide an experimental
@@ -28,7 +27,7 @@ infrastructure (TEA).
 
   The   concept   of   this   library   is   to   test   the
 feasibility/utility  of treating  a  list as  a sequence  of
-key/value pairs.  That is: access  a list as  an associative
+key/value pairs.   That is: access a list  as an associative
 array. This is obviously slow for big lists, but can be used
 to store little data structures with a fixed set of keys.
 
@@ -40,62 +39,28 @@ if we try to set an invalid key.
 2. License
 ----------
 
-All the files  in this package are covered  by the following
-terms, with the following exceptions:
-
-  configure.in
-  tclconfig/install-sh
-  tclconfig/tcl.m4
-     all have their own license notices at the beginning.
-
-  The author  hereby grant permission to  use, copy, modify,
-distribute, and license  this software and its documentation
-for  any purpose, provided  that existing  copyright notices
-are retained in all copies  and that this notice is included
-verbatim  in  any   distributions.   No  written  agreement,
-license,  or  royalty  fee   is  required  for  any  of  the
-authorized  uses.   Modifications to  this  software may  be
-copyrighted  by  their  authors  and  need  not  follow  the
-licensing terms described here,  provided that the new terms
-are clearly indicated  on the first page of  each file where
-they apply.
-
-  IN NO EVENT SHALL THE  AUTHOR OR DISTRIBUTORS BE LIABLE TO
-ANY  PARTY  FOR DIRECT,  INDIRECT,  SPECIAL, INCIDENTAL,  OR
-CONSEQUENTIAL  DAMAGES  ARISING  OUT  OF  THE  USE  OF  THIS
-SOFTWARE,  ITS DOCUMENTATION,  OR  ANY DERIVATIVES  THEREOF,
-EVEN IF THE  AUTHOR HAVE BEEN ADVISED OF  THE POSSIBILITY OF
-SUCH DAMAGE.
-
-  THE  AUTHOR  AND  DISTRIBUTORS SPECIFICALLY  DISCLAIM  ANY
-WARRANTIES,  INCLUDING,  BUT  NOT  LIMITED TO,  THE  IMPLIED
-WARRANTIES  OF  MERCHANTABILITY,  FITNESS FOR  A  PARTICULAR
-PURPOSE, AND NON-INFRINGEMENT.  THIS SOFTWARE IS PROVIDED ON
-AN "AS  IS" BASIS, AND  THE AUTHOR AND DISTRIBUTORS  HAVE NO
-OBLIGATION   TO  PROVIDE   MAINTENANCE,   SUPPORT,  UPDATES,
-ENHANCEMENTS, OR MODIFICATIONS.
+See the "license.terms" file.
 
 
 3. Compile and install
 ----------------------
 
-Read the INSTALL file. 
+Read the INSTALL file.
 
 
 A. Credits
 ----------
 
 Marco Maggi wrote everything  except the original TEA stuff,
-see the copyright notices in the "tclconfig" files. 
+see the copyright notices in the "tclconfig" files.
 
 
 B. Bugs
 -------
 
-A bug  in AList is  my fault only. Reports  are appreciated,
-send them  to me by email.  Get may mail  username, which is
-"marcomaggi",  and the  mail hostname  of my  ISP,  which is
-"tiscalinet.it", and join them together. 
+A  bug  in  AList  is   my  fault  only.   Bug  reports  are
+appreciated,  register them  with the  Issue Tracker  at the
+project development home site.
 
 
 C. Resources
@@ -103,15 +68,14 @@ C. Resources
 
 The latest version of AList can be found here:
 
-    <http://web.tiscali.it/marcomaggi/>
+	    <http://github.com/marcomaggi/tclalist>
 
 TCL can be found here:
 
-    <http://www.tcl.tk/>
+		    <http://www.tcl.tk/>
 
 
 ### end of file
-# $Id: README,v 1.11 2003/02/01 07:47:12 marco Exp $
 # Local Variables:
 # mode: text
 # End:
