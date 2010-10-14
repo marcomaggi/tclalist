@@ -1,39 +1,16 @@
-/* functions.c --
-   
-   Part of: AList
-   Contents: alist functions
-   Date: Mon May  6, 2002
-   
-   Abstract
-   
-   
-   
-   Copyright (c) 2002, 2003 Marco Maggi
-   
-   The author hereby grant  permission to use, copy, modify, distribute,
-   and  license this  software and  its documentation  for  any purpose,
-   provided that  existing copyright notices are retained  in all copies
-   and that  this notice is  included verbatim in any  distributions. No
-   written agreement, license, or royalty fee is required for any of the
-   authorized uses.   Modifications to this software  may be copyrighted
-   by their  authors and need  not follow the licensing  terms described
-   here, provided that the new  terms are clearly indicated on the first
-   page of each file where they apply.
-   
-   IN NO EVENT  SHALL THE AUTHOR OR DISTRIBUTORS BE  LIABLE TO ANY PARTY
-   FOR DIRECT,  INDIRECT, SPECIAL, INCIDENTAL,  OR CONSEQUENTIAL DAMAGES
-   ARISING OUT  OF THE USE OF  THIS SOFTWARE, ITS  DOCUMENTATION, OR ANY
-   DERIVATIVES  THEREOF, EVEN  IF THE  AUTHOR HAVE  BEEN ADVISED  OF THE
-   POSSIBILITY OF SUCH DAMAGE.
-   
-   THE  AUTHOR AND  DISTRIBUTORS SPECIFICALLY  DISCLAIM  ANY WARRANTIES,
-   INCLUDING,   BUT  NOT   LIMITED   TO,  THE   IMPLIED  WARRANTIES   OF
-   MERCHANTABILITY,    FITNESS   FOR    A   PARTICULAR    PURPOSE,   AND
-   NON-INFRINGEMENT.  THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, AND
-   THE   AUTHOR  AND   DISTRIBUTORS  HAVE   NO  OBLIGATION   TO  PROVIDE
-   MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
-   
-   $Id: functions.c,v 1.6 2003/09/12 17:47:19 marco Exp $
+/*
+  Part of: TclAList
+  Contents: alist functions
+  Date: Mon May  6, 2002
+
+  Abstract
+
+
+
+  Copyright (c) 2002, 2003, 2010 Marco Maggi <marco.maggi-ipsu@poste.it>
+
+  See   the  file   "license.terms"   for  information   on  usage   and
+  redistribution of this  file, and for a DISCLAIMER  OF ALL WARRANTIES.
 */
 
 
@@ -43,16 +20,12 @@
 
 #include "alistInt.h"
 
-
 
 /** ------------------------------------------------------------
  ** Prototypes.
  ** ----------------------------------------------------------*/
 
-static CONST char **	Alist_MakeKeyVector _ANSI_ARGS_((Tcl_Obj **objs,
-							 int length));
-
-
+static CONST char **	Alist_MakeKeyVector _ANSI_ARGS_((Tcl_Obj **objs, int length));
 
 
 /* Alist_ObjAssign --
@@ -92,41 +65,30 @@ Alist_ObjAssign (interp, alistPre, keyObj, valueObj, alistPost)
   int		e, i, alistLen;
   Tcl_Obj *	alistObj;
   Tcl_Obj **	alistObjVector;
-  CONST char **	keys;  
-
+  CONST char **	keys;
 
   alistObj = alistPre;
-  if (Tcl_IsShared(alistObj))
-    {
-      alistObj = Tcl_DuplicateObj(alistObj);
-    }
-
+  if (Tcl_IsShared(alistObj)) {
+    alistObj = Tcl_DuplicateObj(alistObj);
+  }
   e = Tcl_ListObjGetElements(interp, alistObj, &alistLen, &alistObjVector);
-  if (e != TCL_OK)
-    {
-      if (interp != NULL)
-	{
-	  Tcl_SetErrorCode(interp, ALIST_ERRCODE_INVALID_ARGUMENT, NULL);
-	}
-      goto Error;
+  if (TCL_OK != e) {
+    if (NULL != interp) {
+      Tcl_SetErrorCode(interp, ALIST_ERRCODE_INVALID_ARGUMENT, NULL);
     }
-
+    goto error;
+  }
   keys = Alist_MakeKeyVector(alistObjVector, alistLen);
   e = Tcl_GetIndexFromObj(interp, keyObj, keys, "key", 0, &i);
   ckfree((char *) keys);
-  if (e != TCL_OK)
-    {
-      if (interp != NULL)
-	{
-	  Tcl_SetErrorCode(interp, ALIST_ERRCODE_INVALID_ARGUMENT, NULL);
-	}
-      goto Error;
+  if (TCL_OK != e) {
+    if (NULL != interp) {
+      Tcl_SetErrorCode(interp, ALIST_ERRCODE_INVALID_ARGUMENT, NULL);
     }
+    goto error;
+  }
 
-
-  /*
-    Store the element.
-  */
+  /* Store the element. */
 
   i *= 2;
   if (i == alistLen)
@@ -136,29 +98,24 @@ Alist_ObjAssign (interp, alistPre, keyObj, valueObj, alistPost)
 	  Tcl_SetErrorCode(interp, ALIST_ERRCODE_INVALID_ARGUMENT, NULL);
 	  Tcl_SetResult(interp, "too few elements in list", TCL_STATIC);
 	}
-      goto Error;
+      goto error;
     }
 
   e = Tcl_ListObjReplace(interp, alistObj, i+1, 1, 1, &valueObj);
-  if (e != TCL_OK)
-    {
-      Tcl_SetErrorCode(interp, ALIST_ERRCODE_INVALID_ARGUMENT, NULL);
-      goto Error;
-    }
+  if (TCL_OK != e) {
+    Tcl_SetErrorCode(interp, ALIST_ERRCODE_INVALID_ARGUMENT, NULL);
+    goto error;
+  }
 
-  /*
-    The result is the new list.
-  */
-
+  /* The result is the new list. */
   *alistPost = alistObj;
   return TCL_OK;
 
- Error:
+ error:
   Tcl_IncrRefCount(alistObj);
   Tcl_DecrRefCount(alistObj);
   return TCL_ERROR;
 }
-
 
 
 /* Alist_Assign --
@@ -197,8 +154,6 @@ Alist_Assign (interp, alistPre, key, valueObj, alistPost)
 {
   int		e;
   Tcl_Obj *	keyObj;
-
-
   keyObj = Tcl_NewStringObj(key, -1);
   Tcl_IncrRefCount(keyObj);
   e = Alist_ObjAssign(interp, alistPre, keyObj, valueObj, alistPost);
@@ -240,36 +195,29 @@ Alist_ObjAt (interp, alistObj, keyObj, valueObjPtr)
 {
   int		e, i, alistLen;
   Tcl_Obj **	alistObjVector;
-  CONST char **	keys;  
+  CONST char **	keys;
 
 
   e = Tcl_ListObjGetElements(interp, alistObj, &alistLen, &alistObjVector);
-  if (e != TCL_OK)
-    {
-      if (interp != NULL)
-	{
-	  Tcl_SetErrorCode(interp, ALIST_ERRCODE_INVALID_ARGUMENT, NULL);
-	}
-      return e;
+  if (TCL_OK != e) {
+    if (NULL != interp) {
+      Tcl_SetErrorCode(interp, ALIST_ERRCODE_INVALID_ARGUMENT, NULL);
     }
+    return e;
+  }
 
   keys = Alist_MakeKeyVector(alistObjVector, alistLen);
-
   e = Tcl_GetIndexFromObj(interp, keyObj, keys, "key", 0, &i);
   Tcl_Free((char *) keys);
-  if (e != TCL_OK)
-    {
-      if (interp != NULL)
-	{
-	  Tcl_SetErrorCode(interp, ALIST_ERRCODE_INVALID_ARGUMENT, NULL);
-	}
-      return e;
+  if (TCL_OK != e) {
+    if (NULL != interp) {
+      Tcl_SetErrorCode(interp, ALIST_ERRCODE_INVALID_ARGUMENT, NULL);
     }
-
+    return e;
+  }
   *valueObjPtr = alistObjVector[2*i+1];
   return TCL_OK;
 }
-
 
 
 /* Alist_At --
@@ -306,8 +254,6 @@ Alist_At (interp, alistObj, key, valueObjPtr)
 {
   int		e;
   Tcl_Obj *	keyObj;
-
-
   keyObj = Tcl_NewStringObj(key, -1);
   Tcl_IncrRefCount(keyObj);
   e = Alist_ObjAt(interp, alistObj, keyObj, valueObjPtr);
@@ -350,39 +296,29 @@ Alist_GetNames (interp, alistObj, namesObjPtr)
 
 
   e = Tcl_ListObjGetElements(interp, alistObj, &alistLen, &alistObjVector);
-  if (e != TCL_OK)
-    {
-      if (interp != NULL)
-	{
-	  Tcl_SetErrorCode(interp, ALIST_ERRCODE_INVALID_ARGUMENT, NULL);
-	}
-      return e;
+  if (TCL_OK != e) {
+    if (NULL != interp) {
+      Tcl_SetErrorCode(interp, ALIST_ERRCODE_INVALID_ARGUMENT, NULL);
     }
+    return e;
+  }
 
   namesObj = Tcl_NewListObj(0, 0);
-  
-  if (alistLen % 2)
-    {
-      --alistLen;
+  if (alistLen % 2) --alistLen;
+  for (i=0; i<alistLen; i+=2) {
+    e = Tcl_ListObjAppendElement(interp, namesObj, alistObjVector[i]);
+    if (TCL_OK != e) {
+      if (NULL != interp) {
+	Tcl_SetErrorCode(interp, ALIST_ERRCODE_INTERNAL_ERROR, NULL);
+      }
+      goto error;
     }
-
-  for (i=0; i<alistLen; i+=2)
-    {
-      e = Tcl_ListObjAppendElement(interp, namesObj, alistObjVector[i]);
-      if (e != TCL_OK)
-	{
-	  if (interp != NULL)
-	    {
-	      Tcl_SetErrorCode(interp, ALIST_ERRCODE_INTERNAL_ERROR, NULL);
-	    }
-	  goto Error;
-	}
-    }
+  }
 
   *namesObjPtr = namesObj;
   return TCL_OK;
 
- Error:
+ error:
   Tcl_IncrRefCount(namesObj);
   Tcl_DecrRefCount(namesObj);
   return TCL_ERROR;
@@ -426,39 +362,30 @@ Alist_GetValues (interp, alistObj, valuesObjPtr)
 
 
   e = Tcl_ListObjGetElements(interp, alistObj, &alistLen, &alistObjVector);
-  if (e != TCL_OK)
-    {
-      if (interp != NULL)
-	{
-	  Tcl_SetErrorCode(interp, ALIST_ERRCODE_INVALID_ARGUMENT, NULL);
-	}
-      return e;
+  if (TCL_OK != e) {
+    if (NULL != interp) {
+      Tcl_SetErrorCode(interp, ALIST_ERRCODE_INVALID_ARGUMENT, NULL);
     }
+    return e;
+  }
 
   valuesObj = Tcl_NewListObj(0, 0);
-  
-  if (alistLen % 2)
-    {
-      --alistLen;
-    }
 
-  for (i=1; i<alistLen; i+=2)
-    {
-      e = Tcl_ListObjAppendElement(interp, valuesObj, alistObjVector[i]);
-      if (e != TCL_OK)
-	{
-	  if (interp != NULL)
-	    {
-	      Tcl_SetErrorCode(interp, ALIST_ERRCODE_INTERNAL_ERROR, NULL);
-	    }
-	  goto Error;
-	}
+  if (alistLen % 2) --alistLen;
+  for (i=1; i<alistLen; i+=2) {
+    e = Tcl_ListObjAppendElement(interp, valuesObj, alistObjVector[i]);
+    if (TCL_OK != e) {
+      if (NULL != interp) {
+	Tcl_SetErrorCode(interp, ALIST_ERRCODE_INTERNAL_ERROR, NULL);
+      }
+      goto error;
     }
+  }
 
   *valuesObjPtr = valuesObj;
   return TCL_OK;
 
- Error:
+ error:
   Tcl_IncrRefCount(valuesObj);
   Tcl_DecrRefCount(valuesObj);
   return TCL_ERROR;
@@ -493,20 +420,15 @@ Alist_GetValues (interp, alistObj, valuesObjPtr)
 static CONST char **
 Alist_MakeKeyVector (Tcl_Obj **objs, int length)
 {
-  int i, knum;
-  CONST char **keys;
-  
-
+  int		i, knum;
+  CONST char **	keys;
   knum = length/2;
   keys = (CONST char **) ckalloc(sizeof(char *) * (knum+1));
-  for (i=0; i<knum; ++i)
-    {
-      keys[i] = Tcl_GetString(objs[i*2]);
-    }
+  for (i=0; i<knum; ++i) {
+    keys[i] = Tcl_GetString(objs[i*2]);
+  }
   keys[knum] = NULL;
-
   return keys;
 }
-
 
 /* end of file */

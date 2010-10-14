@@ -1,0 +1,4 @@
+set ::@PACKAGE_NAME@_library [file dirname [file normalize [info script]]]
+package ifneeded @PACKAGE_NAME@ @PACKAGE_VERSION@ \
+    [list load [file join $dir @PKG_LIB_FILE@] @PACKAGE_NAME@]
+

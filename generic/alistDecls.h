@@ -1,45 +1,20 @@
-/* alistDecls.h --
-   
-   Part of: AList
-   Contents: declarations header file
-   Date: Mon Aug 18, 2003
-   
-   Abstract
-   
-   
-   
-   Copyright (c) 2003 Marco Maggi
-   
-   The author  hereby grant permission to use,  copy, modify, distribute,
-   and  license this  software  and its  documentation  for any  purpose,
-   provided that  existing copyright notices  are retained in  all copies
-   and that  this notice  is included verbatim  in any  distributions. No
-   written agreement, license, or royalty  fee is required for any of the
-   authorized uses.  Modifications to this software may be copyrighted by
-   their authors and need not  follow the licensing terms described here,
-   provided that the new terms are clearly indicated on the first page of
-   each file where they apply.
-   
-   IN NO  EVENT SHALL THE AUTHOR  OR DISTRIBUTORS BE LIABLE  TO ANY PARTY
-   FOR  DIRECT, INDIRECT, SPECIAL,  INCIDENTAL, OR  CONSEQUENTIAL DAMAGES
-   ARISING OUT  OF THE  USE OF THIS  SOFTWARE, ITS DOCUMENTATION,  OR ANY
-   DERIVATIVES  THEREOF, EVEN  IF THE  AUTHOR  HAVE BEEN  ADVISED OF  THE
-   POSSIBILITY OF SUCH DAMAGE.
-   
-   THE  AUTHOR  AND DISTRIBUTORS  SPECIFICALLY  DISCLAIM ANY  WARRANTIES,
-   INCLUDING,   BUT   NOT  LIMITED   TO,   THE   IMPLIED  WARRANTIES   OF
-   MERCHANTABILITY,    FITNESS   FOR    A    PARTICULAR   PURPOSE,    AND
-   NON-INFRINGEMENT.  THIS  SOFTWARE IS PROVIDED  ON AN "AS  IS" BASIS,
-   AND  THE  AUTHOR  AND  DISTRIBUTORS  HAVE  NO  OBLIGATION  TO  PROVIDE
-   MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
-   
-   $Id: alistDecls.h,v 1.1.1.6 2003/09/12 17:37:52 marco Exp $
-*/
+/*
+  Part of: TclAList
+  Contents: declarations header file
+  Date: Mon Aug 18, 2003
 
+  Abstract
+
+
+
+  Copyright (c) 2003, 2010 Marco Maggi <marco.maggi-ipsu@poste.it>
+
+  See   the  file   "license.terms"   for  information   on  usage   and
+  redistribution of this file, and for a DISCLAIMER OF ALL WARRANTIES.
+*/
 
 #ifndef __ALISTDECLS_H
 #define __ALISTDECLS_H 1
-
 
 
 /** ------------------------------------------------------------
@@ -49,7 +24,6 @@
 #define ALIST_ERRCODE_INTERNAL_ERROR	"LOGIC INTERNAL_ERROR"
 #define ALIST_ERRCODE_WRONG_NUM_ARGS	"LOGIC WRONG_NUM_ARGS"
 #define ALIST_ERRCODE_INVALID_ARGUMENT	"LOGIC INVALID_ARGUMENT"
-
 
 
 /** ------------------------------------------------------------
@@ -88,10 +62,7 @@ EXTERN int	Alist_GetValues	_ANSI_ARGS_((Tcl_Interp *interp,
 					     Tcl_Obj *alist,
 					     Tcl_Obj **valuesPtr));
 
-
-
 #endif /* no defined USE_ALIST_STUBS */
-
 
 
 /** ------------------------------------------------------------
@@ -132,7 +103,6 @@ int	(*alist_ObjAt)		_ANSI_ARGS_((Tcl_Interp *interp,
 
 } Alist_StubTable;
 
-
 
 /** ------------------------------------------------------------
  ** Stubs declarations.
@@ -142,13 +112,11 @@ int	(*alist_ObjAt)		_ANSI_ARGS_((Tcl_Interp *interp,
 
 EXTERN Alist_StubTable *	alistStubPtr;
 
-EXTERN CONST char *	Alist_InitStubs	_ANSI_ARGS_((Tcl_Interp *interp,
+EXTERN CONST char * Tclalist_InitStubs	_ANSI_ARGS_((Tcl_Interp *interp,
 						     char *version,
 						     int exact));
-/*
-  Declares the macros use to  indirectly invoke the ALust functions from
-  the stubs table.
-*/
+/* Declares the macros use to indirectly invoke the ALust functions from
+   the stubs table. */
 
 #define Alist_Assign			((alistStubPtr)->alist_Assign)
 #define Alist_At			((alistStubPtr)->alist_At)
@@ -157,11 +125,7 @@ EXTERN CONST char *	Alist_InitStubs	_ANSI_ARGS_((Tcl_Interp *interp,
 #define Alist_ObjAssign			((alistStubPtr)->alist_ObjAssign)
 #define Alist_ObjAt			((alistStubPtr)->alist_ObjAt)
 
-
 #endif /* defined USE_ALIST_STUBS */
-
-
 #endif /* __ALISTDECLS_H */
-
 
 /* end of file */
