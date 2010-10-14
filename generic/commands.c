@@ -29,7 +29,7 @@
  ** Defines.
  ** ----------------------------------------------------------*/
 
-#ifdef ALIST_ENABLE_NAMESPACE
+#if (1 == ALIST_ENABLE_NAMESPACE)
 #  define	NUMARG		1
 #  define	DELTAARG	0
 #else
