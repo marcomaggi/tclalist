@@ -194,7 +194,94 @@ libraries:
 
 doc: info
 
-info:
+#page
+## --------------------------------------------------------------------
+## Texinfo documentation.
+## --------------------------------------------------------------------
+
+ds_texi_SRCDIR		= $(srcdir)/doc
+ds_texi_BUILDDIR	= $(top_builddir)/texinfo.d
+
+vpath	%.texi		$(ds_texi_SRCDIR)
+vpath	%.texiinc	$(ds_texi_SRCDIR)
+
+ds_texi_SOURCES		= $(ds_texi_SRCDIR)/tclalist.texi
+
+DS_TEXI_FLAGS		= -I $(ds_texi_SRCDIR) -I $(ds_texi_BUILDDIR) $(ds_texi_MORE_FLAGS)
+DS_TEXI2INFO_SPLIT_FLAGS?= --no-split
+DS_TEXI2HTML_SPLIT_FLAGS?= --no-split
+DS_TEXI2INFO_FLAGS	= $(DS_TEXI_FLAGS) $(DS_TEXI2INFO_SPLIT_FLAGS)
+DS_TEXI2HTML_FLAGS	= $(DS_TEXI_FLAGS) $(DS_TEXI2HTML_SPLIT_FLAGS) --html
+DS_TEXI2DVI_FLAGS	= $(DS_TEXI_FLAGS) --dvi    --tidy --build-dir=$(ds_texi_BUILDDIR)
+DS_TEXI2PDF_FLAGS	= $(DS_TEXI_FLAGS) --dvipdf --tidy --build-dir=$(ds_texi_BUILDDIR)
+
+ds_texi_PREREQ		= $(ds_texi_BUILDDIR)/version.texiinc
+ds_texi_CLEANFILES	= $(ds_texi_BUILDDIR)/version.texiinc
+
+MKDIR		= mkdir
+GZIP		= gzip
+MAKEINFO	= makeinfo
+TEXI2DVI	= texi2dvi
+TEXI2PDF	= texi2pdf
+DVIPS		= dvips
+RM		= rm
+
+## --------------------------------------------------------------------
+
+ds_texi_INFO_TARGETS	= $(ds_texi_BUILDDIR)/tclalist.info.gz
+ds_texi_INFO_INSTLST	= $(ds_texi_INFO_TARGETS)
+ds_texi_INFO_INSTDIR	= $(infodir)
+
+info: $(ds_texi_INFO_TARGETS)
+
+info-clean:
+	$(RM) $(ds_texi_INFO_TARGETS) $(ds_texi_CLEANFILES)
+
+pdf:	$(ds_texi_BUILDDIR)/tclalist.pdf
+dvi:	$(ds_texi_BUILDDIR)/tclalist.dvi
+ps:	$(ds_texi_BUILDDIR)/tclalist.ps.gz
+html:	$(ds_texi_BUILDDIR)/tclalist.html
+
+clean: info-clean
+
+## --------------------------------------------------------------------
+
+.PHONY: ds-texinfo-builddir
+
+ds-texinfo-builddir:
+	test -d $(ds_texi_BUILDDIR) || $(MKDIR) $(ds_texi_BUILDDIR)
+
+$(ds_texi_BUILDDIR)/version.texiinc: Makefile
+# Placing here the command for the  build dir prevents the targets to be
+# rebuild every time the "doc" rule is invoked.  This is because writing
+# a  file in  the build  directory  changes the  directory access  time.
+# Neither  a phony rule  nor an  ordinary rule  would solve  the problem
+# (trust me, I tried them).
+	@$(MAKE) ds-texinfo-builddir
+	echo -e "@macro version{}\n$(PACKAGE_VERSION)\n@end macro\n" >$(@)
+
+$(ds_texi_BUILDDIR)/%.info: $(ds_texi_SRCDIR)/%.texi $(ds_texi_PREREQ)
+	$(MAKEINFO) $(DS_TEXI2INFO_FLAGS) -o $(@) $(<)
+
+$(ds_texi_BUILDDIR)/%.info.gz: $(ds_texi_BUILDDIR)/%.info
+	$(GZIP) --force --best $(<)
+
+$(ds_texi_BUILDDIR)/%.html: $(ds_texi_SRCDIR)/%.texi $(ds_texi_PREREQ)
+	$(MAKEINFO) $(DS_TEXI2HTML_FLAGS) -o $(@) $(<)
+
+$(ds_texi_BUILDDIR)/%.dvi: $(ds_texi_SRCDIR)/%.texi $(ds_texi_PREREQ)
+	$(TEXI2DVI) $(DS_TEXI2DVI_FLAGS) -o $(@) $(<)
+
+$(ds_texi_BUILDDIR)/%.pdf: $(ds_texi_SRCDIR)/%.texi $(ds_texi_PREREQ)
+	$(TEXI2PDF) $(DS_TEXI2PDF_FLAGS) -o $(@) $(<)
+
+$(ds_texi_BUILDDIR)/%.ps: $(ds_texi_BUILDDIR)/%.dvi
+	cd $(ds_texi_BUILDDIR) && $(DVIPS) $(notdir $(<)) -o
+
+$(ds_texi_BUILDDIR)/%.ps.gz: $(ds_texi_BUILDDIR)/%.ps
+	$(GZIP) --force --best $(<)
+
+#page
 
 install: all install-binaries install-libraries install-doc
 
@@ -435,3 +522,13 @@ uninstall-binaries:
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
+
+.PHONY: echo-variable echo-list-variable
+
+echo-variable:
+	@echo $($(VARIABLE))
+
+echo-list-variable:
+	@$(foreach f,$($(VARIABLE)),echo $(f);)
+
+### end of file

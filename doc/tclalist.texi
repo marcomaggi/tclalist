@@ -1,0 +1,801 @@
+\input texinfo.tex
+@c %**start of header
+@setfilename tclalist.info
+@settitle TclAList
+@c %**end of header
+
+@syncodeindex tp cp
+@syncodeindex fn cp
+
+@c page
+@c ------------------------------------------------------------
+@c Macros.
+@c ------------------------------------------------------------
+
+@include version.texiinc
+
+@c ------------------------------------------------------------
+@c License macros.
+@c ------------------------------------------------------------
+
+@macro gnu{}
+@acronym{GNU}
+@end macro
+
+@macro gpl{}
+@acronym{GPL}
+@end macro
+
+@macro fdl{}
+@acronym{FDL}
+@end macro
+
+@macro bsd{}
+@acronym{BSD}
+@end macro
+
+@c ------------------------------------------------------------
+@c Software related macros.
+@c ------------------------------------------------------------
+
+@macro bash{}
+@command{bash}
+@end macro
+
+@macro gmp{}
+@acronym{GMP}
+@end macro
+
+@macro gcc{}
+@acronym{GCC}
+@end macro
+
+@macro glibc{}
+@gnu{} C Library
+@end macro
+
+@c ------------------------------------------------------------
+@c Network protocols acronyms.
+@c ------------------------------------------------------------
+
+@macro dns{}
+@acronym{DNS}
+@end macro
+
+@macro ftp{}
+@acronym{FTP}
+@end macro
+
+@macro dhcp{}
+@acronym{DHCP}
+@end macro
+
+@macro icmp{}
+@acronym{ICMP}
+@end macro
+
+@macro http{}
+@acronym{HTTP}
+@end macro
+
+@macro https{}
+@acronym{HTTP}
+@end macro
+
+@macro imap{}
+@acronym{IMAP}
+@end macro
+
+@macro ip{}
+@acronym{IP}
+@end macro
+
+@macro tcp{}
+@acronym{TCP}
+@end macro
+
+@macro udp{}
+@acronym{UDP}
+@end macro
+
+@macro ppp{}
+@acronym{PPP}
+@end macro
+
+@macro sftp{}
+@acronym{FTP}
+@end macro
+
+@macro smtp{}
+@acronym{SMTP}
+@end macro
+
+@macro snmp{}
+@acronym{SNMP}
+@end macro
+
+@macro ssh{}
+@acronym{SSH}
+@end macro
+
+@macro ssl{}
+@acronym{SSL}
+@end macro
+
+@macro tls{}
+@acronym{TLS}
+@end macro
+
+@c ------------------------------------------------------------
+@c Miscellaneous acronyms.
+@c ------------------------------------------------------------
+
+@macro adsl{}
+@acronym{ADSL}
+@end macro
+
+@macro alsa{}
+@acronym{ALSA}
+@end macro
+
+@macro ansi{}
+@acronym{ANSI}
+@end macro
+
+@macro api{}
+@acronym{API}
+@end macro
+
+@macro ascii{}
+@acronym{ASCII}
+@end macro
+
+@macro cdrom{}
+@acronym{CDROM}
+@end macro
+
+@macro cli{}
+@acronym{CLI}
+@end macro
+
+@macro cpu{}
+@acronym{CPU}
+@end macro
+
+@macro gui{}
+@acronym{GUI}
+@end macro
+
+@macro ieee{}
+@acronym{IEEE}
+@end macro
+
+@macro isp{}
+@acronym{ISP}
+@end macro
+
+@macro iso{}
+@acronym{ISO}
+@end macro
+
+@macro mime{}
+@acronym{MIME}
+@end macro
+
+@macro mpeg{}
+@acronym{MPEG}
+@end macro
+
+@macro posix{}
+@acronym{POSIX}
+@end macro
+
+@macro ram{}
+@acronym{RAM}
+@end macro
+
+@macro rfc{}
+@acronym{RFC}
+@end macro
+
+@c Remember that @url is already used by Texinfo.
+@macro urla{}
+@acronym{URL}
+@end macro
+
+@macro usb{}
+@acronym{USB}
+@end macro
+
+@macro utf{}
+@acronym{UTF}
+@end macro
+
+@macro uri{}
+@acronym{URI}
+@end macro
+
+@macro xmla{}
+@acronym{XML}
+@end macro
+
+
+@c ------------------------------------------------------------
+@c Arguments macros.
+@c ------------------------------------------------------------
+
+@macro vari{ARG}
+@var{\ARG\1}
+@end macro
+
+@macro varii{ARG}
+@var{\ARG\2}
+@end macro
+
+@macro variii{ARG}
+@var{\ARG\3}
+@end macro
+
+@macro variv{ARG}
+@var{\ARG\4}
+@end macro
+
+@macro varn{ARG}
+@var{\ARG\n}
+@end macro
+
+@macro vark{ARG}
+@var{\ARG\k}
+@end macro
+
+@macro varj{ARG}
+@var{\ARG\j}
+@end macro
+
+@c ------------------------------------------------------------
+
+@macro meta{ARG}
+<\ARG\>
+@end macro
+
+@macro metai{ARG}
+@meta{\ARG\1}
+@end macro
+
+@macro metaii{ARG}
+@meta{\ARG\2}
+@end macro
+
+@macro metaiii{ARG}
+@meta{\ARG\3}
+@end macro
+
+@macro metaiv{ARG}
+@meta{\ARG\4}
+@end macro
+
+@macro metan{ARG}
+@meta{\ARG\n}
+@end macro
+
+@macro metak{ARG}
+@meta{\ARG\k}
+@end macro
+
+@macro metaj{ARG}
+@meta{\ARG\j}
+@end macro
+
+@c ------------------------------------------------------------
+@c C language macros.
+@c ------------------------------------------------------------
+
+@macro cfunc{NAME}
+@code{\NAME\()}
+@end macro
+
+@macro cnull{}
+@code{NULL}
+@end macro
+
+@c ------------------------------------------------------------
+@c Scheme language macros.
+@c ------------------------------------------------------------
+
+@macro clos{}
+@acronym{CLOS}
+@end macro
+
+@macro library{NAME}
+@code{(\NAME\)}
+@end macro
+
+@macro repl{}
+@acronym{REPL}
+@end macro
+
+@macro rnrs{VERSION}
+@acronym{R\VERSION\RS}
+@end macro
+
+@macro srfi{}
+@acronym{SRFI}
+@end macro
+
+@ignore
+Separating the @srfi{} macro from the number with a '--' rather than a
+'-' makes the expansion look ugly in menu entries under the Info reader.
+IMHO this should not happen, but it does; so we live with this, because
+the main purpose of this document is to provide an Info version.
+@end ignore
+@macro ansrfi{NUM}
+@srfi{}-\NUM\
+@end macro
+
+@c ------------------------------------------------------------
+
+@macro func{NAME}
+@code{@sc{\NAME\}}
+@end macro
+
+@macro nil{}
+@code{()}
+@end macro
+
+@macro true{}
+@code{#t}
+@end macro
+
+@macro false{}
+@code{#f}
+@end macro
+
+@macro keyword{NAME}
+@code{#:\NAME\}
+@end macro
+
+@macro class{NAME}
+@code{<\NAME\>}
+@end macro
+
+@c ------------------------------------------------------------
+@c TCL macros.
+@c ------------------------------------------------------------
+
+@c @acronym{TCL}
+@macro tcl{}
+Tcl
+@end macro
+
+@ifinfo
+@macro tclcmd{NAME}
+[\NAME\]
+@end macro
+@end ifinfo
+
+@ifnotinfo
+@macro tclcmd{NAME}
+@code{[\NAME\]}
+@end macro
+@end ifnotinfo
+
+@macro tclvar{NAME}
+@code{\NAME\}
+@end macro
+
+@macro tclcode{CODE}
+@code{[\CODE\]}
+@end macro
+
+@c ------------------------------------------------------------
+@c Macros for references to external documents.
+@c ------------------------------------------------------------
+
+@macro glibcref{NODE, TITLE}
+@ref{\NODE\,\TITLE\,\TITLE\,libc}
+@end macro
+
+@macro rsixref{NODE, TITLE}
+@ref{\NODE\,\TITLE\,\TITLE\,r6rs}
+@end macro
+
+@macro rfiveref{NODE, TITLE}
+@ref{\NODE\,\TITLE\,\TITLE\,r5rs}
+@end macro
+
+@macro ikarusref{NODE, TITLE}
+@ref{\NODE\,\TITLE\,\TITLE\,ikarus}
+@end macro
+
+@macro bibref{TAG}
+@code{[\TAG\]}
+@end macro
+
+@c page
+@c ------------------------------------------------------------
+@c Values.
+@c ------------------------------------------------------------
+
+@set TITLE                      TclAList
+
+@c To be used as @value{PACKAGE} whenever we need to include the full
+@c name of this package.
+@set PACKAGE                    TclAList
+
+@c To be used as @value{PACKAGE} whenever we need to include the
+@c nickname of the project: the name that is used to compose the
+@c distribution tarball or the web address.
+@set PACKAGE_NICKNAME           tclalist
+
+@c To be used as @value{AUTHOR} whenever we need to include the list of
+@c authors of this document.
+@set AUTHOR                     Marco Maggi
+
+@c To be used as @value{AUTHOR_EMAIL} whenever we need to include the
+@c email of the *single* author of this document.
+@set AUTHOR_EMAIL               @email{marco.maggi-ipsu@@poste.it}
+
+@c To be used as @value{COPYRIGHT_YEARS} whenever we need to include the
+@c list of copyright years.
+@set COPYRIGHT_YEARS            2002, 2003, 2010
+
+@c page
+@c ------------------------------------------------------------
+@c Copyright notice.
+@c ------------------------------------------------------------
+
+@copying
+This document describes version @version{} of @value{PACKAGE}, a C
+language extension library for @tcl{}.  This extension implements a set
+of experimental commands to access a list of elements as key/value
+pairs (association list).
+
+The package is available at:
+
+@center @url{http://github.org/marcomaggi/tclalist}
+
+See the file @file{license.terms} for information on usage and
+redistribution of this package, and for a @strong{disclaimer of all
+warranties}.
+
+@noindent
+Copyright @copyright{} @value{COPYRIGHT_YEARS} by @value{AUTHOR} @value{AUTHOR_EMAIL}
+
+@quotation
+Permission is granted to make and distribute verbatim copies of this
+document provided the copyright notice and this permission notice are
+preserved on all copies.
+
+Permission is granted to copy and distribute modified versions of this
+document under the conditions for verbatim copying, provided that the
+entire resulting derived work is distributed under the terms of a
+permission notice identical to this one.
+@ignore
+
+Permission is granted to process this file through TeX and print the
+results, provided the printed document carries a copying permission
+notice identical to this one except for the removal of this paragraph
+(this paragraph not being relevant to the printed manual).
+
+@end ignore
+@end quotation
+@end copying
+
+@c page
+@c ------------------------------------------------------------
+@c Headers.
+@c ------------------------------------------------------------
+
+@titlepage
+@title @value{TITLE}
+@subtitle Revision @version{}
+@author @value{AUTHOR} @value{AUTHOR_EMAIL}
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+
+@c ------------------------------------------------------------
+
+@ifinfo
+@dircategory Development
+@direntry
+* tclalist: (tclalist).         Associative lists for @tcl{}.
+@end direntry
+@end ifinfo
+
+@c ------------------------------------------------------------
+
+@ignore
+@syncodeindex tp cp
+@syncodeindex vr cp
+@syncodeindex fn cp
+@end ignore
+
+@c page
+@ifnottex
+@node Top
+@top @value{TITLE}
+
+@insertcopying
+
+@menu
+* overview::                    Overview of the package.
+* tclapi::                      The @tcl{} commands.
+* capi::                        The C language functions.
+
+Appendices
+
+* references::                  Bibliography and references.
+
+Indexes
+
+* concept index::               An entry for each concept.
+* function index::              An entry for each function.
+* variable index::              An entry for each variable.
+* type index::                  An entry for each type.
+
+@detailmenu
+ --- The Detailed Node Listing ---
+
+The @tcl{} commands
+
+* tclapi setget::               Setting and getting values.
+* tclapi inspect::              Inspecting an alist.
+* tclapi misc::                 Miscellaneous commands.
+
+@end detailmenu
+@end menu
+
+@end ifnottex
+
+@c page
+@node overview
+@chapter Overview of the package
+
+
+The purpose of this extension is to provide an experimental package to
+do some test, particularly on the @tcl{} packaging infrastructure
+(@acronym{TEA}).
+
+The concept of this library is to test the feasibility/utility of
+treating a list as a sequence of key/value pairs.  That is: to access a
+list as an associative array. This is obviously slow for big lists, but
+can be used to store little data structures with a fixed set of keys.
+
+This addresses two ``problems'': arrays consumes a lot of memory; it is
+boring to configure an array to raise an error if we try to set an
+invalid key.
+
+@c ------------------------------------------------------------
+
+@subsubheading What's an alist and what's his format
+
+
+An @dfn{alist} (association list) is a collection of key/value pairs; it
+can be treated as a linear implementation of an associative array.  The
+layout of an alist is as follows:
+
+@example
+@{ KEY1 VALUE1 KEY2 VALUE2 ... @}
+@end example
+
+Values are set and extracted selecting the corresponding key.  An alist
+data portion has an even number of elements; but if the number of
+elements is odd, the last is treated as a list of properties and ignored
+by non--property related commands.
+
+At present the property list handling is not implemented yet.
+
+@c page
+@node tclapi
+@chapter The @tcl{} commands
+
+
+By default the single command @tclcmd{alist} is added to the global
+namespace; but, if the @option{--enable-namespace} option is used with
+the @command{configure} script at compile time, all the subcommands are
+created in the @code{::alist} namespace.
+
+@menu
+* tclapi setget::               Setting and getting values.
+* tclapi inspect::              Inspecting an alist.
+* tclapi misc::                 Miscellaneous commands.
+@end menu
+
+@c page
+@node tclapi setget
+@section Setting and getting values
+
+
+@deffn {Namespace Command} assign @var{alist} @var{key} @var{value}
+@deffnx Command {alist assign} @var{alist} @var{key} @var{value}
+Set a new element for the value associated with a key in an alist.  This
+command treats @var{alist} as a sequence of key/value pairs.  The value
+associated with @var{key} is replaced with @var{value}.  Return the new
+list.
+@end deffn
+
+
+@deffn {Namespace Command} at @var{alist} @var{key}
+@deffnx Command {alist at} @var{alist} @var{key}
+Return the value associated with a key in an alist.  This command treats
+@var{alist} as a sequence of key/value pairs; it looks for the @var{key}
+element and returns the element next to it.
+@end deffn
+
+@c page
+@node tclapi inspect
+@section Inspecting an alist
+
+
+The following commands are declared in the @code{alist} namespace.
+
+
+@deffn Command names @var{alist}
+@deffnx Command {alist } @var{alist}
+Gets the list of keys in an alist.  This command treats @var{alist} as a
+sequence of key/value pairs.  Returns the set of keys, that is: all the
+elements located at even positions.  If @var{alist} has an odd number of
+elements, the last is ignored.
+@end deffn
+
+
+@deffn Command values @var{alist}
+@deffnx Command {alist values} @var{alist}
+Gets the list of values in an alist. This command treats @var{alist} as
+a sequence of key/value pairs.  Returns the set of values, that is all
+the elements located at odd positions.  If @var{alist} has an odd number
+of elements, the last is ignored.
+@end deffn
+
+@c page
+@node tclapi misc
+@section Miscellaneous commands
+
+
+@deffn Command version
+@deffnx Command {alist version}
+Returns the version number of the library.
+@end deffn
+
+@c page
+@node capi
+@chapter The C language functions
+
+
+@deftypefun int AList_ObjAssign (@var{interp}, @var{alistPre}, @var{key}, @var{value}, @var{alistPost})
+Sets a new value for the element associated with a key.
+
+Arguments:
+
+@table @code
+@item Tcl_Interp *@var{interp}
+interp used to report errors;
+
+@item Tcl_Obj *@var{alistPre}
+ptr to the list of objects;
+
+@item Tcl_Obj *@var{key}
+ptr to the key object;
+
+@item Tcl_Obj *@var{value}
+ptr to the new value;
+
+@item Tcl_Obj ** @var{alistPost}
+ptr to a target variable that will hold the new alist;
+@end table
+
+Returns @code{TCL_OK} or @code{TCL_ERROR}.  If shared the alist is
+duplicated; the object referenced by @var{alistPost} has @code{refCount}
+equal to that of @code{*@var{alistPre}} or equal to zero.
+@end deftypefun
+
+
+@deftypefun int AList_Assign (@var{interp}, @var{alistPre}, @var{key}, @var{value}, @var{alistPost})
+Like @code{AList_ObjAssign()}, but @var{key} is a @code{CONST char *}.
+@end deftypefun
+
+
+@deftypefun int AList_ObjAt (@var{interp}, @var{alist}, @var{key}, @var{value})
+Extracts the value associated to a given key.
+
+Arguments:
+
+@table @code
+@item Tcl_Interp *@var{interp}
+interp used to report errors;
+
+@item Tcl_Obj *@var{alist}
+pointer to the alist object;
+
+@item Tcl_Obj *@var{key}
+pointer to the key object;
+
+@item Tcl_Obj **@var{value}
+ptr to a target variable.
+@end table
+
+Returns @code{TCL_OK} or @code{TCL_ERROR} if the key is not present.
+The result object has reference counter untouched.
+@end deftypefun
+
+
+@deftypefun int AList_At (@var{interp}, @var{alist}, @var{key}, @var{value})
+Like @code{AList_ObjAt()}, but @var{key} is a @code{CONST char *}.
+@end deftypefun
+
+
+@deftypefun int AList_GetNames (@var{interp}, @var{alist}, @var{namesPtr})
+Extracts all the key objects from an alist.
+
+Arguments:
+
+@table @code
+@item Tcl_Interp *@var{interp}
+interp used to report errors;
+
+@item Tcl_Obj *@var{alist}
+ptr to the alist object;
+@item Tcl_Obj **@var{namesPtr}
+ptr to a target variable that will hold the result.
+@end table
+
+Returns @code{TCL_OK} or @code{TCL_ERROR}.The result object has
+@code{refCount} left to zero.
+@end deftypefun
+
+
+@deftypefun int AList_GetValues (@var{interp}, @var{alist}, @var{valuesPtr})
+Extracts all the values in the alist, that is: a list holding elements
+number 1, 3, 5, @dots{}
+
+Arguments:
+
+@table @code
+@item Tcl_Interp *@var{interp}
+interp used to report errors;
+
+@item Tcl_Obj *@var{alist}
+ptr to the alist;
+
+@item Tcl_Obj **@var{valuesPtr}
+ptr to a target variable that will hold the result.
+@end table
+
+Returns @code{TCL_OK} or @code{TCL_ERROR}. The result object has
+@code{refCount} left to zero.
+@end deftypefun
+
+
+@c page
+@node references
+@appendix Bibliography and references
+
+
+
+@c page
+@node concept index
+@appendix An entry for each concept
+
+@printindex cp
+
+@node function index
+@appendix An entry for each function.
+
+@printindex fn
+
+@node variable index
+@appendix An entry for each variable.
+
+@printindex vr
+
+@node type index
+@appendix An entry for each type.
+
+@printindex tp
+
+@contents
+@bye
+
+@c end of file

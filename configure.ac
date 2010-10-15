@@ -48,7 +48,20 @@ TEA_MAKE_LIB
 TEA_PROG_TCLSH
 #TEA_PROG_WISH
 
-AC_DEFINE([ALIST_ENABLE_NAMESPACE],0,[enable package namespace])
+AC_MSG_CHECKING([package namespace])
+AC_ARG_ENABLE([namespace],
+  AC_HELP_STRING([--enable-namespace],[whether to enable package namespace (default: no)]),
+  [if test "$enableval" = yes ;
+   then
+       ALIST_ENABLE_NAMESPACE=1
+       AC_DEFINE([ALIST_ENABLE_NAMESPACE],1)
+   else
+       ALIST_ENABLE_NAMESPACE=0
+       AC_DEFINE([ALIST_ENABLE_NAMESPACE],0)
+   fi],
+  [ALIST_ENABLE_NAMESPACE=0
+   AC_DEFINE([ALIST_ENABLE_NAMESPACE],0)])
+AC_MSG_RESULT([$[]ALIST_ENABLE_NAMESPACE])
 
 AC_OUTPUT([Makefile pkgIndex.tcl])
 
