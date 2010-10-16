@@ -202,6 +202,8 @@ doc: info
 ds_texi_SRCDIR		= $(srcdir)/doc
 ds_texi_BUILDDIR	= $(top_builddir)/texinfo.d
 
+infodir			= @infodir@
+
 vpath	%.texi		$(ds_texi_SRCDIR)
 vpath	%.texiinc	$(ds_texi_SRCDIR)
 
@@ -232,6 +234,8 @@ ds_texi_INFO_TARGETS	= $(ds_texi_BUILDDIR)/tclalist.info.gz
 ds_texi_INFO_INSTLST	= $(ds_texi_INFO_TARGETS)
 ds_texi_INFO_INSTDIR	= $(infodir)
 
+.PHONY: info info-clean pdf dvi ps html install-info
+
 info: $(ds_texi_INFO_TARGETS)
 
 info-clean:
@@ -243,6 +247,11 @@ ps:	$(ds_texi_BUILDDIR)/tclalist.ps.gz
 html:	$(ds_texi_BUILDDIR)/tclalist.html
 
 clean: info-clean
+
+install-info: info
+	@mkdir -p $(DESTDIR)$(ds_texi_INFO_INSTDIR)
+	@echo "Installing documentation in $(DESTDIR)$(ds_texi_INFO_INSTDIR)"
+	@$(INSTALL_DATA) $(ds_texi_INFO_INSTLST) $(DESTDIR)$(ds_texi_INFO_INSTDIR)
 
 ## --------------------------------------------------------------------
 
@@ -305,13 +314,13 @@ install-libraries: libraries
 # directory.
 #========================================================================
 
-install-doc: doc
-	@mkdir -p $(DESTDIR)$(mandir)/mann
-	@echo "Installing documentation in $(DESTDIR)$(mandir)"
-	@list='$(srcdir)/doc/*.n'; for i in $$list; do \
-	    echo "Installing $$i"; \
-	    $(INSTALL_DATA) $$i $(DESTDIR)$(mandir)/mann ; \
-	done
+install-doc: install-info doc
+#	@mkdir -p $(DESTDIR)$(mandir)/mann
+#	@echo "Installing documentation in $(DESTDIR)$(mandir)"
+#	@list='$(srcdir)/doc/*.n'; for i in $$list; do \
+#	    echo "Installing $$i"; \
+#	    $(INSTALL_DATA) $$i $(DESTDIR)$(mandir)/mann ; \
+#	done
 
 test: binaries libraries
 	$(TCLSH) `@CYGPATH@ $(srcdir)/tests/all.tcl` $(TESTFLAGS)
