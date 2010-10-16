@@ -629,22 +629,19 @@ element and returns the element next to it.
 @section Inspecting an alist
 
 
-The following commands are declared in the @code{alist} namespace.
-
-
-@deffn Command names @var{alist}
-@deffnx Command {alist } @var{alist}
-Gets the list of keys in an alist.  This command treats @var{alist} as a
-sequence of key/value pairs.  Returns the set of keys, that is: all the
+@deffn {Namespace Command} names @var{alist}
+@deffnx Command {alist names} @var{alist}
+Get the list of keys in an alist.  This command treats @var{alist} as a
+sequence of key/value pairs.  Return the set of keys, that is: all the
 elements located at even positions.  If @var{alist} has an odd number of
 elements, the last is ignored.
 @end deffn
 
 
-@deffn Command values @var{alist}
+@deffn {Namespace Command} values @var{alist}
 @deffnx Command {alist values} @var{alist}
-Gets the list of values in an alist. This command treats @var{alist} as
-a sequence of key/value pairs.  Returns the set of values, that is all
+Get the list of values in an alist.  This command treats @var{alist} as
+a sequence of key/value pairs.  Return the set of values, that is: all
 the elements located at odd positions.  If @var{alist} has an odd number
 of elements, the last is ignored.
 @end deffn
@@ -654,9 +651,9 @@ of elements, the last is ignored.
 @section Miscellaneous commands
 
 
-@deffn Command version
+@deffn {Namespace Command} version
 @deffnx Command {alist version}
-Returns the version number of the library.
+Return the version number of the library.
 @end deffn
 
 @c page
@@ -665,108 +662,100 @@ Returns the version number of the library.
 
 
 @deftypefun int AList_ObjAssign (@var{interp}, @var{alistPre}, @var{key}, @var{value}, @var{alistPost})
-Sets a new value for the element associated with a key.
-
-Arguments:
+Set a new value for the element associated with a key.  Arguments:
 
 @table @code
-@item Tcl_Interp *@var{interp}
-interp used to report errors;
+@item Tcl_Interp * @var{interp}
+Interp used to report errors.
 
-@item Tcl_Obj *@var{alistPre}
-ptr to the list of objects;
+@item Tcl_Obj * @var{alistPre}
+Pointer to the list of objects.
 
-@item Tcl_Obj *@var{key}
-ptr to the key object;
+@item Tcl_Obj * @var{key}
+Pointer to the key object.
 
-@item Tcl_Obj *@var{value}
-ptr to the new value;
+@item Tcl_Obj * @var{value}
+Pointer to the new value.
 
 @item Tcl_Obj ** @var{alistPost}
-ptr to a target variable that will hold the new alist;
+Pointer to a target variable that will hold the new alist.
 @end table
 
-Returns @code{TCL_OK} or @code{TCL_ERROR}.  If shared the alist is
+Return @code{TCL_OK} or @code{TCL_ERROR}.  If shared, the alist is
 duplicated; the object referenced by @var{alistPost} has @code{refCount}
 equal to that of @code{*@var{alistPre}} or equal to zero.
 @end deftypefun
 
 
 @deftypefun int AList_Assign (@var{interp}, @var{alistPre}, @var{key}, @var{value}, @var{alistPost})
-Like @code{AList_ObjAssign()}, but @var{key} is a @code{CONST char *}.
+Like @cfunc{AList_ObjAssign}, but @var{key} is a @code{CONST char *}.
 @end deftypefun
 
 
 @deftypefun int AList_ObjAt (@var{interp}, @var{alist}, @var{key}, @var{value})
-Extracts the value associated to a given key.
-
-Arguments:
+Extract the value associated to a given key.  Arguments:
 
 @table @code
-@item Tcl_Interp *@var{interp}
-interp used to report errors;
+@item Tcl_Interp * @var{interp}
+Interp used to report errors.
 
 @item Tcl_Obj *@var{alist}
-pointer to the alist object;
+Pointer to the alist object.
 
 @item Tcl_Obj *@var{key}
-pointer to the key object;
+Pointer to the key object.
 
 @item Tcl_Obj **@var{value}
-ptr to a target variable.
+Pointer to a target variable.
 @end table
 
-Returns @code{TCL_OK} or @code{TCL_ERROR} if the key is not present.
-The result object has reference counter untouched.
+Return @code{TCL_OK} or @code{TCL_ERROR} if the key is not present.  The
+result object has reference counter untouched.
 @end deftypefun
 
 
 @deftypefun int AList_At (@var{interp}, @var{alist}, @var{key}, @var{value})
-Like @code{AList_ObjAt()}, but @var{key} is a @code{CONST char *}.
+Like @cfunc{AList_ObjAt}, but @var{key} is a @code{CONST char *}.
 @end deftypefun
 
 
 @deftypefun int AList_GetNames (@var{interp}, @var{alist}, @var{namesPtr})
-Extracts all the key objects from an alist.
-
-Arguments:
+Extract all the key objects from an alist.  Arguments:
 
 @table @code
-@item Tcl_Interp *@var{interp}
-interp used to report errors;
+@item Tcl_Interp * @var{interp}
+Interp used to report errors.
 
-@item Tcl_Obj *@var{alist}
-ptr to the alist object;
-@item Tcl_Obj **@var{namesPtr}
-ptr to a target variable that will hold the result.
+@item Tcl_Obj * @var{alist}
+Pointer to the alist object.
+
+@item Tcl_Obj ** @var{namesPtr}
+Pointer to a target variable that will hold the result.
 @end table
 
-Returns @code{TCL_OK} or @code{TCL_ERROR}.The result object has
+Return @code{TCL_OK} or @code{TCL_ERROR}.  The result object has
 @code{refCount} left to zero.
 @end deftypefun
 
 
 @deftypefun int AList_GetValues (@var{interp}, @var{alist}, @var{valuesPtr})
-Extracts all the values in the alist, that is: a list holding elements
-number 1, 3, 5, @dots{}
-
-Arguments:
+Extract all the values in the alist, that is: a list holding elements
+number 1, 3, 5, @dots{}  Arguments:
 
 @table @code
-@item Tcl_Interp *@var{interp}
-interp used to report errors;
+@item Tcl_Interp * @var{interp}
+Interp used to report errors.
 
-@item Tcl_Obj *@var{alist}
-ptr to the alist;
+@item Tcl_Obj * @var{alist}
+Pointer to the alist.
 
-@item Tcl_Obj **@var{valuesPtr}
-ptr to a target variable that will hold the result.
+@item Tcl_Obj ** @var{valuesPtr}
+Pointer to a target variable that will hold the result.
 @end table
 
-Returns @code{TCL_OK} or @code{TCL_ERROR}. The result object has
+Return @code{TCL_OK} or @code{TCL_ERROR}.  The result object has
 @code{refCount} left to zero.
 @end deftypefun
-
 
 @c page
 @node references
