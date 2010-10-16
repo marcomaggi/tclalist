@@ -17,19 +17,18 @@ Topics
 1. Overview
 -----------
 
-This package  implements a  set of experimental  commands to
-access  a list  of  elements as  key/value  pairs.  All  the
-commands are created in the "alist" namespace.
-
-  The purpose of this  library is to provide an experimental
-package  to do  some  tests, particularly  on the  packaging
-infrastructure (TEA).
+TclAList  is a  C  language extension  library  for Tcl;  it
+implements a  set of experimental commands to  access a list
+of elements as key/value pairs.  The purpose of this library
+is  to provide  an experimental  package to  do  some tests,
+particularly on the packaging infrastructure (TEA).
 
   The   concept   of   this   library   is   to   test   the
 feasibility/utility  of treating  a  list as  a sequence  of
 key/value pairs.   That is: access a list  as an associative
-array. This is obviously slow for big lists, but can be used
-to store little data structures with a fixed set of keys.
+array.  This  is obviously  slow for big  lists, but  can be
+used to  store little  data structures with  a fixed  set of
+keys.
 
   This addresses  two "problems":  arrays consumes a  lot of
 memory, it's boring to configure  an array to raise an error
@@ -45,7 +44,37 @@ See the "license.terms" file.
 3. Compile and install
 ----------------------
 
-Read the INSTALL file.
+Do this:
+
+    $ cd tclalist0.1
+    $ mkdir "=build"
+    $ cd "=build"
+
+to inspect the available configuration options:
+
+    $ ../configure --help
+
+then do it:
+
+    $ ../configure [options]
+    $ make
+    $ make test
+    $ make install
+
+  The Makefile supports  the DESTDIR environment variable to
+install files in a  temporary location, example: to see what
+will happen:
+
+    $ make -n install DESTDIR=/tmp/marco/package
+
+to really do it:
+
+    $ make install DESTDIR=/tmp/marco/package
+
+  By  default the  single command  [alist] is  added  to the
+global namespace; but, if the "--enable-namespace" option is
+used with  the "configure"  script, all the  subcommands are
+created in the "::alist" namespace.
 
 
 A. Credits
@@ -58,9 +87,9 @@ see the copyright notices in the "tclconfig" files.
 B. Bugs
 -------
 
-A  bug  in  AList  is   my  fault  only.   Bug  reports  are
-appreciated,  register them  with the  Issue Tracker  at the
-project development home site.
+A bug in TclAList is  Marco Maggi's fault only.  Bug reports
+are appreciated, register them with the Issue Tracker at the
+project development website.
 
 
 C. Resources
@@ -70,7 +99,7 @@ The latest version of AList can be found here:
 
 	    <http://github.com/marcomaggi/tclalist>
 
-TCL can be found here:
+Tcl can be found here:
 
 		    <http://www.tcl.tk/>
 

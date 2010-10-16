@@ -567,6 +567,8 @@ This addresses two ``problems'': arrays consumes a lot of memory; it is
 boring to configure an array to raise an error if we try to set an
 invalid key.
 
+This package is supposed to work with @tcl{} version 8.5+.
+
 @c ------------------------------------------------------------
 
 @subsubheading What's an alist and what's his format
@@ -591,6 +593,12 @@ At present the property list handling is not implemented yet.
 @node tclapi
 @chapter The @tcl{} commands
 
+
+To use the package we need to load it with:
+
+@example
+package require TclAList
+@end example
 
 By default the single command @tclcmd{alist} is added to the global
 namespace; but, if the @option{--enable-namespace} option is used with
